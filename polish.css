@@ -209,3 +209,15 @@ body{background:var(--paper);overflow-x:hidden}
   .related-section{padding:58px 12px 70px}.related-heading{display:block}.related-heading h2{font-size:50px}.related-heading .text-link{display:inline-flex;margin-top:18px}.related-grid{grid-template-columns:repeat(2,1fr);gap:9px}.related-grid .product-card:last-child{display:block}
   .wholesale-hero{min-height:760px;padding:42px 20px 18px}.wholesale-stack{min-height:320px}.wholesale-stack img{width:49%}.wholesale-paths article{padding:22px 15px}.wholesale-builder{padding:60px 12px}.wholesale-benefits{padding:45px 12px}.wholesale-faq{padding:60px 20px}
 }
+
+/* v6: keep the hero message and product art in clearly separated zones */
+.hero:before{content:none}
+.hero-art{overflow:hidden;isolation:isolate}
+.hero-copy{z-index:5}
+
+@media(max-width:760px){
+  .hero-copy{padding-bottom:34px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#f8fbf7 0%,#f2f7f1 100%)}
+  .hero-art{min-height:390px;background:linear-gradient(180deg,#edf5ec 0%,#f8f8f3 100%)}
+  .hero-orbit{top:24px}
+  .hero-caption{bottom:13px}
+}
