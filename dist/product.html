@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="polish.css?v=7">
+  <link rel="stylesheet" href="polish.css?v=8">
 </head>
 <body class="product-page">
   <div class="announce"><span>PRIVATE DESIGN PREVIEW · NO LIVE ORDERS</span></div>
@@ -27,10 +27,17 @@
 
   <main>
     <section class="product-page-shell">
-      <div class="product-page-visual">
-        <span class="product-view-label">CLEAN, CONSISTENT PRODUCT VIEW</span>
-        <img id="product-page-image" src="" alt="">
-        <p>One angle. One scale. No distracting background.</p>
+      <div class="product-page-gallery">
+        <div class="product-page-visual">
+          <span class="product-view-label">CLEAN FRONT + VERIFIED DETAILS</span>
+          <img id="product-page-image" src="" alt="">
+          <button class="gallery-arrow gallery-prev" type="button" aria-label="Previous product photo">←</button>
+          <button class="gallery-arrow gallery-next" type="button" aria-label="Next product photo">→</button>
+          <p class="product-view-caption" aria-live="polite">Loading product gallery…</p>
+          <span class="gallery-count" aria-live="polite"></span>
+        </div>
+        <div class="product-gallery-thumbs" role="tablist" aria-label="Product views"></div>
+        <p class="gallery-source-note">Clean AI front view, followed by exact catalog angles, detail shots, and real on-person photos.</p>
       </div>
       <div class="product-page-info">
         <a class="product-back" href="index.html#hats">← Back to all 27 hats</a>
@@ -50,8 +57,8 @@
     </section>
 
     <section class="product-confidence">
-      <article><span>01</span><h2>CLEAN PRODUCT IMAGES</h2><p>Every hat uses the same centered angle, scale, lighting, and background treatment.</p></article>
-      <article><span>02</span><h2>DETAILS THAT SCAN</h2><p>Fit, construction, availability, and pricing stay easy to understand.</p></article>
+      <article><span>01</span><h2>EVERY ANGLE COVERED</h2><p>Start with the polished front view, then move through exact side, rear, embroidery, and construction details.</p></article>
+      <article><span>02</span><h2>SEE IT WORN</h2><p>Real Bucket Heads lifestyle photos show how each hat fits and looks off the product stand.</p></article>
       <article><span>03</span><h2>READY FOR SHOPIFY</h2><p>The final store can connect this presentation to live inventory and checkout.</p></article>
     </section>
 
@@ -77,6 +84,6 @@
   </aside>
   <div class="toast" role="status" aria-live="polite"></div>
   <script src="app.js"></script>
-  <script src="product.js"></script>
+  <script src="product.js?v=8"></script>
 </body>
 </html>
