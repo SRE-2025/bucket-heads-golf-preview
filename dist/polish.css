@@ -99,3 +99,113 @@ body{background:var(--paper);overflow-x:hidden}
   .product-modal{grid-template-columns:1fr;border-radius:20px;overflow:auto}.modal-image{min-height:310px}.modal-copy{padding:35px 22px}.modal-copy h2{font-size:34px}.bag-drawer{padding:24px 18px}
   .wholesale-hero{grid-template-columns:1fr;min-height:850px;padding:55px 22px 20px}.wholesale-stack{min-height:400px}.wholesale-stack img{width:55%}.wholesale-stack img:first-child{top:2%}.wholesale-stack img:nth-child(3){bottom:0}.wholesale-paths{grid-template-columns:1fr 1fr}.wholesale-paths article{padding:25px 17px}.wholesale-paths h2{font-size:25px}.wholesale-builder{padding:75px 14px}.builder-form{padding:20px 14px}.wholesale-benefits{padding:50px 14px}.wholesale-faq{grid-template-columns:1fr;padding:75px 22px}.wholesale-faq h2{font-size:55px}.faq-list summary{font-size:20px}
 }
+
+/* v4: tighter Yips-inspired rhythm with Bucket Heads branding */
+.announce{display:flex;justify-content:center;min-height:32px;padding:7px 20px;text-align:center}
+.announce span{justify-self:auto;opacity:.9}
+.hero{grid-template-columns:52% 48%;min-height:560px}
+.hero-art{min-height:560px}
+.hero-orbit{width:490px;height:490px;left:0;top:34px;box-shadow:0 0 0 70px rgba(11,107,55,.016)}
+.hero-hat-a{width:29%;left:1%;top:27%}.hero-hat-b{width:34%;left:29%;top:12%}.hero-hat-c{width:29%;right:1%;top:29%}.hero-hat-d{width:26%;left:14%;top:60%}.hero-hat-e{width:27%;right:16%;top:60%}
+.hero-caption{bottom:18px}
+.hero-copy{padding:38px 4.5vw 38px 2vw}
+.hero h1,.wholesale-hero h1{font-size:clamp(62px,5.7vw,86px);line-height:.84}
+.pill{margin-bottom:18px;padding:10px 16px;font-size:10px}
+.hero-text{margin:18px 0 22px;font-size:16px;line-height:1.5}
+.hero-ctas{gap:14px}
+.shop-section{padding:72px 3vw 88px}
+.shop-section:before{top:54px;font-size:clamp(105px,14vw,215px)}
+.section-heading{margin-bottom:28px}
+.section-heading h2{font-size:clamp(56px,5.8vw,86px);line-height:.82}
+.shop-toolbar{margin-bottom:22px}
+.product-card>a{display:block;color:inherit;text-decoration:none}
+.product-details{padding:14px 15px 14px}
+.product-details h3{min-height:34px;font-size:14px}
+.product-details>span{margin-top:12px;padding-top:11px}
+.every-golfer-section{padding:80px 4vw}
+.every-golfer-heading{margin-bottom:30px}
+.every-golfer-heading h2{font-size:clamp(54px,5.8vw,84px)}
+.persona-card{height:430px}
+.value-section{padding:78px 5vw}
+.value-section h2{font-size:clamp(58px,5.7vw,88px)}
+.value-list article{padding:24px 0}
+.wild-section{padding:80px 4vw}
+.wild-heading{margin-bottom:28px}
+.wild-heading h2{font-size:clamp(58px,6vw,88px)}
+.wild-grid{grid-template-rows:250px 250px}
+.story-section{min-height:610px}
+.story-copy{padding:58px 7vw}
+.story-copy h2{font-size:clamp(56px,5.7vw,86px)}
+.story-lead{font-size:19px}
+.reviews-section{padding:78px 4vw}
+.reviews-grid blockquote{min-height:240px;padding:26px}
+.partners-section{padding:62px 4vw 70px}
+.partners-heading{margin-bottom:26px}
+.partners-heading h2{font-size:clamp(56px,5.8vw,84px)}
+.partners-grid a{min-height:108px;padding:23px;font-size:19px}
+.wholesale-cta{display:block;min-height:0;padding:42px 4vw;background:var(--green)}
+.wholesale-cta:before{bottom:-34px;font-size:12vw}
+.wholesale-cta-copy{display:grid;grid-template-columns:minmax(420px,1.6fr) minmax(230px,.7fr) auto;align-items:center;gap:34px}
+.wholesale-cta h2{margin:5px 0 0;font-size:clamp(42px,4vw,62px);line-height:.86}
+.wholesale-cta>div>p:not(.eyebrow){margin:0;color:#d4e5d7;line-height:1.5}
+.wholesale-cta .button{white-space:nowrap}
+.site-footer{padding:62px 4vw 30px}
+
+/* Product detail preview */
+.product-page-shell{position:relative;display:grid;grid-template-columns:58% 42%;gap:20px;padding:54px 3vw 70px;background-color:#f2f6ef;background-image:linear-gradient(rgba(11,107,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(11,107,55,.05) 1px,transparent 1px);background-size:66px 66px}
+.product-page-visual,.product-page-info{border:1px solid rgba(11,13,11,.09);border-radius:30px;background:#fff;box-shadow:0 12px 34px rgba(6,60,32,.05)}
+.product-page-visual{position:relative;display:grid;place-items:center;min-height:640px;overflow:hidden}
+.product-page-visual:before{content:"";position:absolute;width:72%;aspect-ratio:1;border:1px solid rgba(11,107,55,.13);border-radius:50%;box-shadow:0 0 0 80px rgba(11,107,55,.018)}
+.product-page-visual img{position:relative;z-index:1;width:72%;height:72%;object-fit:contain;filter:drop-shadow(0 26px 24px rgba(0,0,0,.14))}
+.product-view-label{position:absolute;z-index:2;left:22px;top:22px;padding:9px 12px;border-radius:99px;background:var(--green);color:#fff;font:700 9px/1 var(--body);letter-spacing:.13em}
+.product-page-visual>p{position:absolute;z-index:2;left:24px;bottom:19px;margin:0;color:#526057;font-size:12px}
+.product-page-info{padding:46px 48px}
+.product-back{display:inline-block;margin-bottom:42px;border-bottom:1px solid var(--line);padding-bottom:4px;font-size:12px;font-weight:700}
+.product-page-info h1{margin:8px 0 12px;font:800 clamp(50px,5.3vw,82px)/.86 var(--display);letter-spacing:-.04em;text-transform:uppercase}
+.product-page-price{margin:0 0 18px;color:#a52622;font-size:28px;font-weight:800}
+.product-preview-note{display:flex;gap:14px;align-items:center;margin:0 0 23px;padding:14px 16px;border-radius:14px;background:#eef7ec}
+.product-preview-note b{color:var(--green);font-size:10px;letter-spacing:.12em}.product-preview-note span{font-size:11px;line-height:1.4}
+.product-page-description{max-width:560px;margin:0 0 24px;color:#4d554f;font-size:16px;line-height:1.6}
+.product-fit-list{margin-bottom:27px;border-top:1px solid var(--line)}
+.product-fit-list>div{display:grid;grid-template-columns:32px 1fr;gap:13px;padding:14px 0;border-bottom:1px solid var(--line)}
+.product-fit-list>div>span{color:var(--green);font-size:10px;font-weight:800}.product-fit-list p{margin:0;color:#576059;font-size:12px;line-height:1.45}.product-fit-list b{display:block;margin-bottom:3px;color:var(--ink);font-size:12px}
+.product-page-add{margin-right:18px}.product-page-add:disabled{opacity:.5;cursor:not-allowed}
+.product-page-live{display:inline-flex;margin-top:18px}
+.product-confidence{display:grid;grid-template-columns:repeat(3,1fr);background:var(--green-deep);color:#fff}
+.product-confidence article{min-height:220px;padding:36px 4vw;border-right:1px solid rgba(255,255,255,.14)}.product-confidence article:last-child{border-right:0}
+.product-confidence span{color:var(--lime);font-size:10px;font-weight:800;letter-spacing:.14em}.product-confidence h2{margin:36px 0 10px;font:800 32px/.9 var(--display)}.product-confidence p{max-width:360px;margin:0;color:#bfd0c4;font-size:13px;line-height:1.55}
+.related-section{padding:78px 3vw 90px;background:var(--paper)}
+.related-heading{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:28px}.related-heading h2{margin:5px 0 0;font:800 clamp(54px,5.5vw,82px)/.82 var(--display);letter-spacing:-.035em}
+.related-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+
+/* Wholesale page: faster path to the interactive builder */
+.wholesale-hero{min-height:540px;padding:48px 5vw}
+.wholesale-stack{min-height:410px}
+.wholesale-stack img{width:45%}
+.wholesale-stack span{bottom:5%}
+.wholesale-paths article{padding:28px 24px}
+.wholesale-paths h2{margin:16px 0 5px;font-size:31px}
+.wholesale-builder{padding:80px 5vw}
+.wholesale-benefits{padding:60px 4vw}
+.wholesale-faq{padding:78px 5vw}
+
+@media(max-width:1180px){
+  .wholesale-cta-copy{grid-template-columns:1.3fr .7fr}.wholesale-cta .button{grid-column:1/-1;justify-self:start}
+  .product-page-shell{grid-template-columns:52% 48%}.product-page-info{padding:40px 34px}.related-grid{grid-template-columns:repeat(4,1fr)}.related-grid .product-card:last-child{display:none}
+}
+
+@media(max-width:760px){
+  .announce{min-height:30px;padding:8px 12px}
+  .hero{grid-template-columns:1fr;min-height:0}
+  .hero-copy{order:1;padding:42px 20px 22px}.hero-art{order:2;min-height:370px}.hero h1,.wholesale-hero h1{font-size:54px}.hero-text{margin:15px 0 19px}
+  .hero-orbit{width:330px;height:330px;left:-10%;top:28px}.hero-hat-a{width:31%;left:-2%;top:28%}.hero-hat-b{width:39%;left:27%;top:9%}.hero-hat-c{width:31%;right:-1%;top:30%}.hero-hat-d{width:28%;left:11%;top:59%}.hero-hat-e{width:29%;right:13%;top:60%}
+  .shop-section{padding:58px 12px 68px}.shop-section:before{top:40px}.section-heading h2{font-size:50px}
+  .every-golfer-section,.wild-section,.reviews-section{padding-top:62px;padding-bottom:62px}.persona-card{height:370px}.wild-grid{grid-template-rows:330px 180px 220px}
+  .value-section{padding-top:64px;padding-bottom:64px}.story-section{min-height:0}.story-image{min-height:350px}.story-copy{padding:52px 22px}.reviews-grid blockquote{min-height:205px}
+  .partners-section{padding:58px 14px}.partners-grid a{min-height:86px}
+  .wholesale-cta{padding:46px 20px}.wholesale-cta-copy{display:block}.wholesale-cta h2{font-size:44px}.wholesale-cta>div>p:not(.eyebrow){margin:18px 0 22px}
+  .product-page-shell{grid-template-columns:1fr;padding:24px 12px 46px}.product-page-visual{min-height:390px;border-radius:22px}.product-page-visual img{width:78%;height:78%}.product-page-info{padding:34px 22px;border-radius:22px}.product-back{margin-bottom:30px}.product-page-info h1{font-size:48px}.product-page-add{width:100%;margin:0}.product-page-live{margin-top:20px}
+  .product-confidence{grid-template-columns:1fr}.product-confidence article{min-height:0;padding:32px 22px;border-right:0;border-bottom:1px solid rgba(255,255,255,.14)}.product-confidence h2{margin-top:20px}
+  .related-section{padding:58px 12px 70px}.related-heading{display:block}.related-heading h2{font-size:50px}.related-heading .text-link{display:inline-flex;margin-top:18px}.related-grid{grid-template-columns:repeat(2,1fr);gap:9px}.related-grid .product-card:last-child{display:block}
+  .wholesale-hero{min-height:760px;padding:42px 20px 18px}.wholesale-stack{min-height:320px}.wholesale-stack img{width:49%}.wholesale-paths article{padding:22px 15px}.wholesale-builder{padding:60px 12px}.wholesale-benefits{padding:45px 12px}.wholesale-faq{padding:60px 20px}
+}
