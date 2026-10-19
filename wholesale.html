@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="description" content="Bucket Heads Golf wholesale program preview.">
   <title>Wholesale — Bucket Heads Golf</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +14,7 @@
   <div class="announce"><span>PRIVATE DESIGN PREVIEW · NO FORM IS SENT</span><b>WHOLESALE, TOURNAMENTS & CUSTOM ORDERS</b><a href="index.html">BACK TO THE SHOP ↗</a></div>
   <header class="site-header">
     <button class="mobile-menu" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
-    <nav class="nav-left"><a href="index.html">Home</a><a href="index.html#hats">Hats</a><a href="index.html#story">Fore Everyone</a><a class="is-active" href="wholesale.html">Wholesale</a></nav>
+    <nav class="nav-left" aria-label="Primary navigation"><a href="index.html">Home</a><a href="index.html#hats">Hats</a><a href="index.html#story">Fore Everyone</a><a class="is-active" href="wholesale.html">Wholesale</a></nav>
     <a class="brand" href="index.html"><img src="assets/bucket-heads-logo.png" alt="Bucket Heads Golf"></a>
     <div class="header-actions"><a class="text-link header-return" href="index.html">Back to shop <span>↗</span></a></div>
     <nav class="mobile-drawer"><a href="index.html">Home</a><a href="index.html#hats">Hats</a><a href="index.html#story">Fore Everyone</a><a href="wholesale.html">Wholesale</a></nav>
@@ -38,7 +39,7 @@
     </section>
 
     <section class="wholesale-builder" id="builder">
-      <div class="builder-intro"><p class="eyebrow">WHOLESALE BUILDER</p><h2>TELL US WHAT<br>YOU’RE BUILDING.</h2><p>Choose a program, volume, and styles. The preview creates a clean inquiry summary without sending anything.</p></div>
+      <div class="builder-intro"><p class="eyebrow">WHOLESALE BUILDER</p><h2>TELL US WHAT<br>YOU’RE BUILDING.</h2><p>A few quick choices create a complete brief for a retailer, pro shop, tournament, event, or custom program.</p></div>
       <form class="builder-form" novalidate>
         <div class="builder-step is-current" data-step="1">
           <div class="step-label"><span>01</span><p>Choose your program</p></div>
@@ -52,10 +53,11 @@
         <div class="builder-step" data-step="2">
           <div class="step-label"><span>02</span><p>Estimated quantity</p></div>
           <div class="choice-grid quantity-grid">
-            <label><input type="radio" name="quantity" value="24–47"><b>24–47</b><span>Focused first run</span></label>
-            <label><input type="radio" name="quantity" value="48–95"><b>48–95</b><span>Growing program</span></label>
-            <label><input type="radio" name="quantity" value="96–199"><b>96–199</b><span>Full event or retail wall</span></label>
-            <label><input type="radio" name="quantity" value="200+"><b>200+</b><span>Large-scale custom order</span></label>
+            <label><input type="radio" name="quantity" value="12–24"><b>12–24</b><span>Focused first run</span></label>
+            <label><input type="radio" name="quantity" value="25–49"><b>25–49</b><span>Growing program</span></label>
+            <label><input type="radio" name="quantity" value="50–99"><b>50–99</b><span>Event or retail wall</span></label>
+            <label><input type="radio" name="quantity" value="100–249"><b>100–249</b><span>Large program</span></label>
+            <label><input type="radio" name="quantity" value="250+"><b>250+</b><span>High-volume custom order</span></label>
           </div>
         </div>
         <div class="builder-step" data-step="3">
@@ -75,7 +77,10 @@
             <label><span>Name</span><input type="text" name="name" autocomplete="name" placeholder="Your name"></label>
             <label><span>Organization</span><input type="text" name="organization" placeholder="Shop, course, company, or event"></label>
             <label><span>Email</span><input type="email" name="email" autocomplete="email" placeholder="you@example.com"></label>
+            <label><span>Phone</span><input type="tel" name="phone" autocomplete="tel" placeholder="Best number to reach you"></label>
+            <label><span>City / State</span><input type="text" name="location" autocomplete="address-level2" placeholder="Austin, TX"></label>
             <label><span>Timing</span><select name="timing"><option value="Exploring options">Exploring options</option><option value="Within 30 days">Within 30 days</option><option value="1–3 months">1–3 months</option><option value="3+ months">3+ months</option></select></label>
+            <label><span>How did you hear about us?</span><input type="text" name="referral" placeholder="Referral, event, social, search..."></label>
           </div>
           <label class="notes-field"><span>Anything else?</span><textarea name="notes" rows="4" placeholder="Colors, event date, logo needs, or other details"></textarea></label>
         </div>
