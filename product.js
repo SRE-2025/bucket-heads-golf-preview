@@ -50,7 +50,7 @@ function showMedia(index,moveFocus=false){
   pageImage.src=media.src;
   pageImage.alt=`${product.title} — ${kind.toLowerCase()} view`;
   pageVisual.classList.toggle('is-lifestyle',kind==='On-person');
-  galleryCaption.textContent=kind==='Clean front'?'Polished AI front view · matched to this product':kind==='On-person'?'Real-world fit · official Bucket Heads photo':`${kind} view · official Bucket Heads photo`;
+  galleryCaption.textContent=kind==='Clean front'?'Clean front view · verified to this product':kind==='On-person'?'Real-world fit · official Bucket Heads photo':`${kind} view · official Bucket Heads photo`;
   galleryCount.textContent=`${activeMediaIndex+1} / ${galleryMedia.length}`;
   [...galleryThumbs.children].forEach((button,buttonIndex)=>{
     const selected=buttonIndex===activeMediaIndex;
