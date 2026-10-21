@@ -283,3 +283,14 @@ body{background:var(--paper);overflow-x:hidden}
   .custom-work{padding:62px 12px 70px}.custom-work-heading{display:block;margin-bottom:26px}.custom-work-heading h2{font-size:54px}.custom-work-heading>p{margin-top:17px}.custom-work-grid{grid-template-columns:1fr 1fr;gap:9px}.custom-work-card-wide{grid-column:1/-1}.custom-work-card>div{aspect-ratio:1}.custom-work-card-wide>div{aspect-ratio:1.8}.custom-work-card figcaption{min-height:82px;padding:14px 12px}.custom-work-card figcaption strong{font-size:16px}
   .story-collage{min-height:470px}.story-photo-detail{right:14px;bottom:60px;width:36%;border-width:5px}.story-collage>span{left:18px;bottom:23px}
 }
+
+/* v12: conversion measurement readiness and interaction polish */
+:where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{outline:3px solid var(--orange);outline-offset:4px}
+.product-page-visual:focus-visible{box-shadow:0 0 0 4px rgba(217,79,34,.22)}
+.filters{scroll-snap-type:x proximity;scrollbar-width:thin}
+.filter{scroll-snap-align:start}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+}
