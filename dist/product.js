@@ -27,6 +27,8 @@ if(product.badge==='Sold out'){
   pageAdd.disabled=true;
   pageAdd.textContent='Currently sold out';
 }
+const productTrackingItem={item_id:product.handle,item_name:product.title,item_category:categoryLabel(product),price:product.price,quantity:1};
+window.BHTrack?.('view_item',{currency:'USD',value:product.price,items:[productTrackingItem],availability:product.badge==='Sold out'?'sold_out':'available'});
 
 function normalizeMediaSource(source){
   if(!source)return '';
@@ -42,7 +44,7 @@ function mediaKind(source,index){
   return 'Detail';
 }
 
-function showMedia(index,moveFocus=false){
+function showMedia(index,moveFocus=false,trackView=false){
   if(!galleryMedia.length)return;
   activeMediaIndex=(index+galleryMedia.length)%galleryMedia.length;
   const media=galleryMedia[activeMediaIndex];
@@ -59,6 +61,7 @@ function showMedia(index,moveFocus=false){
     button.tabIndex=selected?0:-1;
   });
   if(moveFocus)galleryThumbs.children[activeMediaIndex]?.focus();
+  if(trackView)window.BHTrack?.('view_item_photo',{item_id:product.handle,item_name:product.title,photo_index:activeMediaIndex+1,photo_type:kind.toLowerCase(),photo_count:galleryMedia.length});
 }
 
 function renderGallery(sources){
@@ -68,7 +71,7 @@ function renderGallery(sources){
     const kind=mediaKind(media.src,index);
     return `<button class="product-gallery-thumb${index===0?' is-active':''}" type="button" role="tab" aria-selected="${index===0}" aria-label="Show ${kind.toLowerCase()} view"><img src="${media.src}" alt="" loading="lazy"><span>${kind}</span></button>`;
   }).join('');
-  [...galleryThumbs.children].forEach((button,index)=>button.addEventListener('click',()=>showMedia(index)));
+  [...galleryThumbs.children].forEach((button,index)=>button.addEventListener('click',()=>showMedia(index,false,true)));
   showMedia(0);
 }
 
@@ -86,8 +89,12 @@ async function loadVerifiedGallery(){
   }
 }
 
-galleryPrev.addEventListener('click',()=>showMedia(activeMediaIndex-1));
-galleryNext.addEventListener('click',()=>showMedia(activeMediaIndex+1));
+galleryPrev.addEventListener('click',()=>showMedia(activeMediaIndex-1,false,true));
+galleryNext.addEventListener('click',()=>showMedia(activeMediaIndex+1,false,true));
+pageVisual.addEventListener('keydown',event=>{if(event.key==='ArrowLeft'){event.preventDefault();showMedia(activeMediaIndex-1,false,true)}if(event.key==='ArrowRight'){event.preventDefault();showMedia(activeMediaIndex+1,false,true)}});
+let touchStartX=0;
+pageVisual.addEventListener('touchstart',event=>{touchStartX=event.changedTouches[0]?.clientX||0},{passive:true});
+pageVisual.addEventListener('touchend',event=>{const distance=(event.changedTouches[0]?.clientX||0)-touchStartX;if(Math.abs(distance)>45)showMedia(activeMediaIndex+(distance<0?1:-1),false,true)},{passive:true});
 pageImage.addEventListener('error',()=>{
   const fallback=new URL(webp(product.file),location.href).href;
   if(pageImage.src!==fallback)pageImage.src=fallback;
@@ -99,9 +106,14 @@ pageAdd.addEventListener('click',()=>{
     bag.push(product);
     saveBag();
     renderBag();
+    window.BHTrack?.('add_to_cart',{currency:'USD',value:product.price,items:[productTrackingItem]});
   }
   toggleBag(true);
 });
 
-const related=products.filter(item=>item.handle!==product.handle).slice(0,5);
-document.querySelector('.related-grid').innerHTML=related.map(item=>`<article class="product-card"><a href="product.html?handle=${encodeURIComponent(item.handle)}"><div class="product-visual"><img src="${webp(item.file)}" alt="${item.title}" loading="lazy"></div><div class="product-details"><p class="product-kicker">${categoryLabel(item)}</p><div class="product-title-row"><h3>${item.title}</h3><p class="product-price">${money(item.price)}</p></div><span>VIEW HAT<b>→</b></span></div></a></article>`).join('');
+const sameCollection=products.filter(item=>item.handle!==product.handle&&item.category.split(' ').some(category=>product.category.split(' ').includes(category)));
+const otherCollections=products.filter(item=>item.handle!==product.handle&&!sameCollection.includes(item));
+const related=[...sameCollection,...otherCollections].slice(0,5);
+const relatedGrid=document.querySelector('.related-grid');
+relatedGrid.innerHTML=related.map(item=>`<article class="product-card"><a href="product.html?handle=${encodeURIComponent(item.handle)}" data-related-handle="${item.handle}"><div class="product-visual">${item.badge?`<span class="product-badge ${item.badge==='Sold out'?'sold':''}">${item.badge==='Featured'?'New drop':item.badge}</span>`:''}<img src="${webp(item.file)}" alt="${item.title}" loading="lazy" decoding="async"></div><div class="product-details"><p class="product-kicker">${categoryLabel(item)}</p><div class="product-title-row"><h3>${item.title}</h3><p class="product-price">${money(item.price)}</p></div><span>VIEW HAT<b>→</b></span></div></a></article>`).join('');
+relatedGrid.addEventListener('click',event=>{const link=event.target.closest('[data-related-handle]');if(!link)return;const selected=products.find(item=>item.handle===link.dataset.relatedHandle);if(selected)window.BHTrack?.('select_item',{item_list_id:'related_products',item_list_name:'More from the drop',items:[{item_id:selected.handle,item_name:selected.title,item_category:categoryLabel(selected),price:selected.price,quantity:1}]})});
