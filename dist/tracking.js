@@ -21,7 +21,7 @@
   if(!lastTouch||hasCampaign){lastTouch=campaignTouch;safeWrite(sessionStorage,`${STORAGE_KEY}-last`,lastTouch)}
   let sessionId=sessionStorage.getItem(SESSION_KEY);
   if(!sessionId){sessionId=crypto.randomUUID?.()||`bh-${Date.now()}-${Math.random().toString(16).slice(2)}`;try{sessionStorage.setItem(SESSION_KEY,sessionId)}catch{}}
-  const pageType=document.body.classList.contains('product-page')?'product':document.body.classList.contains('wholesale-page')?'wholesale':document.body.classList.contains('checkout-page')?'checkout':'home';
+  const pageType=document.body.classList.contains('product-page')?'product':document.body.classList.contains('wholesale-page')?'wholesale':document.body.classList.contains('tournament-page')?'tournament':document.body.classList.contains('checkout-page')?'checkout':'home';
   const events=[];
   let recentEvents=safeRead(localStorage,EVENT_KEY)||[];
   if(!Array.isArray(recentEvents))recentEvents=[];
@@ -54,6 +54,7 @@
   }
   window.BHTrack=track;
   window.BHTracking={track,events,recentEvents,sessionId,attribution:{first:firstTouch,last:lastTouch}};
+  document.addEventListener('click',event=>{const link=event.target.closest?.('[data-tournament-cta]');if(!link)return;track('select_tournament_registration',{event_name:link.dataset.eventName||'Plum Creek Golf Course',destination:link.href,signup_system:'shopify_forms'})});
   document.documentElement.dataset.trackingReady='true';
   document.documentElement.dataset.trackingSource=lastTouch.source;
   document.documentElement.dataset.trackingMedium=lastTouch.medium;
