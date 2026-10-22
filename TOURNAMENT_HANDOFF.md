@@ -1,20 +1,25 @@
 # Tournament registration continuity
 
-The redesign must keep the current Shopify registration system as the single source of truth.
+The redesign must use the active Onion Creek Club products as the single source of truth. The published `golf-tournament-sign-up` page still contains the past Plum Creek event and must not be copied into the replacement theme.
 
-- Public path: `https://bucketheadsgolf.com/pages/golf-tournament-sign-up`
-- Shopify Forms instance: `92cb7b1d-488a-4728-9b20-1d4129e2bcec`
-- Current event: Plum Creek Golf Course, Thursday, October 22, 2026 at 1:30 PM
-- Current fields: first name, last name, phone, optional SMS consent, email, optional email consent, team name, and teammates
-- Post-submit purchase choices: $125 individual entry or $500 team entry
+## Verified active event inventory
+
+- Event: Onion Creek Club Scramble
+- Format: six-player scramble
+- No current date or tee time is published in the active Shopify products, so the preview intentionally does not invent one.
+- Single player: product `9572420452583`, variant `52158742954215`, handle `scramble-registration`, $175
+- Team of six: product `9572652482791`, variant `52158875074791`, handle `scramble-registration-4-player-team`, $1,050
+- Hole sponsor: product `9680298475751`, variant `52511999492327`, handle `scramble-hole-sponsor`, $400
 
 ## Launch rules
 
-1. Do not replace the Shopify form with a separate static form or a new form instance.
-2. Keep the existing page handle `golf-tournament-sign-up` so saved links and campaign traffic continue working.
-3. Keep the Shopify Forms app embed enabled in the replacement theme.
-4. Preserve the form's post-submit redirect to the existing individual and team entry products.
-5. Before launch, submit one clearly labeled internal test registration, confirm it appears in the existing Shopify Forms submissions list, confirm the redirect, and then remove the test record.
-6. Verify the Tournament links in desktop navigation, mobile navigation, and the footer.
+1. Do not recreate or duplicate the three active products. Keep their product and variant IDs so orders, inventory, and analytics stay connected.
+2. Replace the stale Plum Creek content at `golf-tournament-sign-up` or redirect that path to the new tournament page so saved links cannot lead to the past event.
+3. Add event-specific line-item properties to the player and team product forms: captain name, phone, email, team name, and all six player names. Add company name, sponsor contact, and logo follow-up instructions to the sponsor product.
+4. Include a hidden event value of `Onion Creek Club Scramble` with every registration so a future tournament cannot be mixed into the same reporting bucket.
+5. Keep all payments in Shopify checkout. Do not introduce a second payment or order database.
+6. Before launch, place one clearly labeled test for each path, confirm the product ID, price, line-item properties, checkout handoff, order record, email notification, and analytics event, then cancel or refund the test orders according to the client's normal process.
+7. Verify the Tournament links in desktop navigation, mobile navigation, homepage strip, and footer.
+8. Add the confirmed date and tee time only after Bucket Heads publishes or supplies them.
 
-The GitHub preview intentionally sends registration clicks to the live Shopify form so preview testing cannot create a second signup database.
+The GitHub preview intentionally sends registration clicks to the three current live Shopify products. It does not create a second form or database.
