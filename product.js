@@ -18,7 +18,7 @@ let activeMediaIndex=0;
 
 document.title=`${product.title} — Bucket Heads Golf Preview`;
 pageImage.src=webp(product.file);
-pageImage.alt=`${product.title} clean front view`;
+pageImage.alt=`${product.title} AI studio front view`;
 pageTitle.textContent=product.title;
 pagePrice.textContent=money(product.price);
 pageCategory.textContent=categoryLabel(product);
@@ -30,29 +30,22 @@ if(product.badge==='Sold out'){
 const productTrackingItem={item_id:product.handle,item_name:product.title,item_category:categoryLabel(product),price:product.price,quantity:1};
 window.BHTrack?.('view_item',{currency:'USD',value:product.price,items:[productTrackingItem],availability:product.badge==='Sold out'?'sold_out':'available'});
 
-function normalizeMediaSource(source){
-  if(!source)return '';
-  return source.startsWith('//')?`https:${source}`:source;
-}
-
-function mediaKind(source,index){
-  if(index===0)return 'Clean front';
-  if(/\.(jpe?g)(\?|$)/i.test(source))return 'On-person';
-  if(index===1)return 'Official front';
-  if(index===2)return 'Side';
-  if(index===3)return 'Alternate';
-  return 'Detail';
-}
+const galleryViews=[
+  {file:'front.webp',kind:'AI front',caption:'Straight-on studio view · recreated from this exact product'},
+  {file:'three-quarter.webp',kind:'Three-quarter',caption:'Three-quarter studio view · matched to the same hat'},
+  {file:'side.webp',kind:'Side',caption:'Side profile · logo, rope, and panel details preserved'},
+  {file:'rear.webp',kind:'Rear detail',caption:'Rear construction · closure and embroidery shown clearly'}
+];
 
 function showMedia(index,moveFocus=false,trackView=false){
   if(!galleryMedia.length)return;
   activeMediaIndex=(index+galleryMedia.length)%galleryMedia.length;
   const media=galleryMedia[activeMediaIndex];
-  const kind=mediaKind(media.src,activeMediaIndex);
+  const kind=media.kind;
   pageImage.src=media.src;
   pageImage.alt=`${product.title} — ${kind.toLowerCase()} view`;
-  pageVisual.classList.toggle('is-lifestyle',kind==='On-person');
-  galleryCaption.textContent=kind==='Clean front'?'Clean front view · verified to this product':kind==='On-person'?'Real-world fit · official Bucket Heads photo':`${kind} view · official Bucket Heads photo`;
+  pageVisual.classList.remove('is-lifestyle');
+  galleryCaption.textContent=media.caption;
   galleryCount.textContent=`${activeMediaIndex+1} / ${galleryMedia.length}`;
   [...galleryThumbs.children].forEach((button,buttonIndex)=>{
     const selected=buttonIndex===activeMediaIndex;
@@ -64,29 +57,17 @@ function showMedia(index,moveFocus=false,trackView=false){
   if(trackView)window.BHTrack?.('view_item_photo',{item_id:product.handle,item_name:product.title,photo_index:activeMediaIndex+1,photo_type:kind.toLowerCase(),photo_count:galleryMedia.length});
 }
 
-function renderGallery(sources){
-  galleryMedia=[...new Set(sources.map(normalizeMediaSource).filter(Boolean))].map(src=>({src}));
-  if(!galleryMedia.length)galleryMedia=[{src:webp(product.file)}];
+function renderGallery(media){
+  galleryMedia=media;
   galleryThumbs.innerHTML=galleryMedia.map((media,index)=>{
-    const kind=mediaKind(media.src,index);
-    return `<button class="product-gallery-thumb${index===0?' is-active':''}" type="button" role="tab" aria-selected="${index===0}" aria-label="Show ${kind.toLowerCase()} view"><img src="${media.src}" alt="" loading="lazy"><span>${kind}</span></button>`;
+    return `<button class="product-gallery-thumb${index===0?' is-active':''}" type="button" role="tab" aria-selected="${index===0}" aria-label="Show ${media.kind.toLowerCase()} view"><img src="${media.src}" alt="" loading="lazy" decoding="async"><span>${media.kind}</span></button>`;
   }).join('');
   [...galleryThumbs.children].forEach((button,index)=>button.addEventListener('click',()=>showMedia(index,false,true)));
   showMedia(0);
 }
 
-async function loadVerifiedGallery(){
-  const cleanFront=webp(product.file);
-  renderGallery([cleanFront]);
-  try{
-    const response=await fetch(`https://bucketheadsgolf.com/products/${encodeURIComponent(product.handle)}.js`,{mode:'cors'});
-    if(!response.ok)throw new Error(`Catalog request failed: ${response.status}`);
-    const catalogProduct=await response.json();
-    const officialImages=(catalogProduct.images||[]).map(normalizeMediaSource);
-    renderGallery([cleanFront,...officialImages]);
-  }catch(error){
-    galleryCaption.textContent='Polished front view · official gallery temporarily unavailable';
-  }
+function loadVerifiedGallery(){
+  renderGallery(galleryViews.map(view=>({...view,src:`assets/product-gallery/${product.handle}/${view.file}?v=18`})));
 }
 
 galleryPrev.addEventListener('click',()=>showMedia(activeMediaIndex-1,false,true));
@@ -97,7 +78,7 @@ pageVisual.addEventListener('touchstart',event=>{touchStartX=event.changedTouche
 pageVisual.addEventListener('touchend',event=>{const distance=(event.changedTouches[0]?.clientX||0)-touchStartX;if(Math.abs(distance)>45)showMedia(activeMediaIndex+(distance<0?1:-1),false,true)},{passive:true});
 pageImage.addEventListener('error',()=>{
   const fallback=new URL(webp(product.file),location.href).href;
-  if(pageImage.src!==fallback)pageImage.src=fallback;
+  if(pageImage.src!==fallback){pageImage.src=fallback;galleryCaption.textContent='AI studio front · preview fallback';}
 });
 loadVerifiedGallery();
 
