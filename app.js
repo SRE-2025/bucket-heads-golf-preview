@@ -40,10 +40,27 @@ try{bag=JSON.parse(sessionStorage.getItem('bh-preview-bag')||'[]')}catch{bag=[]}
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 function money(n){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n)}
 function categoryLabel(p){return p.category.split(' ').map(c=>labels[c]).filter(Boolean)[0]||'Bucket Heads'}
-function webp(file){const product=products.find(item=>item.file===file);return product?`assets/product-gallery/${product.handle}/front.webp?v=18`:`assets/hats-webp/${file.replace(/\.png$/i,'.webp')}`}
+function galleryView(handle,view='front'){return `assets/product-gallery/${handle}/${view}.webp?v=19`}
+function webp(file){const product=products.find(item=>item.file===file);return product?galleryView(product.handle):`assets/hats-webp/${file.replace(/\.png$/i,'.webp')}`}
 const track=(event,detail)=>window.BHTrack?.(event,detail);
 const trackingItem=p=>({item_id:p.handle,item_name:p.title,item_category:categoryLabel(p),price:p.price,quantity:1});
-function renderProducts(){const grid=$('.product-grid');if(!grid)return;let visible=products.filter(p=>{const searchable=`${p.title} ${categoryLabel(p)} ${p.category}`.toLowerCase();return(activeFilter==='all'||p.category.split(' ').includes(activeFilter))&&searchable.includes(searchTerm)});if(sortMode==='az')visible=[...visible].sort((a,b)=>a.title.localeCompare(b.title));grid.dataset.count=String(visible.length);grid.innerHTML=visible.map((p,i)=>`<article class="product-card"><a href="product.html?handle=${encodeURIComponent(p.handle)}" data-product-handle="${p.handle}" aria-label="View ${p.title}"><div class="product-visual">${p.badge?`<span class="product-badge ${p.badge==='Sold out'?'sold':''}">${p.badge==='Featured'?'New drop':p.badge}</span>`:''}<img src="${webp(p.file)}" alt="${p.title}" loading="${i<5?'eager':'lazy'}" decoding="async"></div><div class="product-details"><p class="product-kicker">${categoryLabel(p)}</p><div class="product-title-row"><h3>${p.title}</h3><p class="product-price">${money(p.price)}</p></div><span>VIEW HAT<b>→</b></span></div></a></article>`).join('');$('.empty-state').hidden=visible.length!==0}
+function bindProductCardPreviews(root=document){
+  if(!window.matchMedia('(hover:hover) and (pointer:fine)').matches)return;
+  root.querySelectorAll('.product-card').forEach(card=>{
+    const image=card.querySelector('img[data-angle-src]');
+    if(!image||card.dataset.previewBound)return;
+    card.dataset.previewBound='true';
+    const showAngle=()=>{image.src=image.dataset.angleSrc;card.classList.add('is-angle')};
+    const showFront=()=>{image.src=image.dataset.frontSrc;card.classList.remove('is-angle')};
+    card.addEventListener('pointerenter',showAngle);
+    card.addEventListener('pointerleave',showFront);
+    card.addEventListener('focusin',showAngle);
+    card.addEventListener('focusout',showFront);
+    image.addEventListener('error',showFront,{once:true});
+  });
+}
+window.bindProductCardPreviews=bindProductCardPreviews;
+function renderProducts(){const grid=$('.product-grid');if(!grid)return;let visible=products.filter(p=>{const searchable=`${p.title} ${categoryLabel(p)} ${p.category}`.toLowerCase();return(activeFilter==='all'||p.category.split(' ').includes(activeFilter))&&searchable.includes(searchTerm)});if(sortMode==='az')visible=[...visible].sort((a,b)=>a.title.localeCompare(b.title));grid.dataset.count=String(visible.length);grid.innerHTML=visible.map((p,i)=>`<article class="product-card"><a href="product.html?handle=${encodeURIComponent(p.handle)}" data-product-handle="${p.handle}" aria-label="View ${p.title}"><div class="product-visual">${p.badge?`<span class="product-badge ${p.badge==='Sold out'?'sold':''}">${p.badge==='Featured'?'New drop':p.badge}</span>`:''}<img src="${galleryView(p.handle)}" data-front-src="${galleryView(p.handle)}" data-angle-src="${galleryView(p.handle,'three-quarter')}" alt="${p.title}" loading="${i<5?'eager':'lazy'}" decoding="async"><span class="product-angle-cue" aria-hidden="true">Front&nbsp; / &nbsp;Angle</span></div><div class="product-details"><p class="product-kicker">${categoryLabel(p)}</p><div class="product-title-row"><h3>${p.title}</h3><p class="product-price">${money(p.price)}</p></div><span>VIEW HAT<b>→</b></span></div></a></article>`).join('');$('.empty-state').hidden=visible.length!==0;bindProductCardPreviews(grid)}
 function openProduct(handle){activeProduct=products.find(p=>p.handle===handle);if(!activeProduct)return;lastFocus=document.activeElement;const modal=$('.product-modal');$('.modal-image img').src=webp(activeProduct.file);$('.modal-image img').alt=activeProduct.title;$('.modal-category').textContent=categoryLabel(activeProduct);$('#modal-title').textContent=activeProduct.title;$('.modal-price').textContent=money(activeProduct.price);$('.modal-live').href=`https://bucketheadsgolf.com/products/${activeProduct.handle}`;$('.modal-add').disabled=activeProduct.badge==='Sold out';$('.modal-add').textContent=activeProduct.badge==='Sold out'?'Currently sold out':'Add to preview bag';$('.modal-backdrop').hidden=false;modal.showModal();document.body.classList.add('is-locked')}
 function closeProduct(){const modal=$('.product-modal');if(modal?.open)modal.close();const back=$('.modal-backdrop');if(back)back.hidden=true;document.body.classList.remove('is-locked');lastFocus?.focus?.();lastFocus=null}
 function saveBag(){sessionStorage.setItem('bh-preview-bag',JSON.stringify(bag))}
