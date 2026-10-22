@@ -15,7 +15,7 @@ The redesign must use the active Onion Creek Club products as the single source 
 
 1. Do not recreate or duplicate the three active products. Keep their product and variant IDs so orders, inventory, and analytics stay connected.
 2. Replace the stale Plum Creek content at `golf-tournament-sign-up` or redirect that path to the new tournament page so saved links cannot lead to the past event.
-3. Keep the captain-led team builder shown in the preview. It generates a unique `BH-OC-XXXXXX` team code and places that code, captain name, player identity, role, event, and payment plan into Shopify line-item properties. A separate team name is intentionally not collected.
+3. Keep the captain-led team builder shown in the preview. It generates a memorable captain-based code such as `TIM-4827` and places that code, captain name, player identity, role, event, and payment plan into Shopify line-item properties. A separate team name is intentionally not collected.
 4. For split payment, the captain buys one single-player variant (`52158742954215`) and shares the generated link. Each teammate's link reuses the same team code and adds another single-player variant to that player's own Shopify cart.
 5. For full-team payment, the captain buys the existing six-player variant (`52158875074791`) and the entered roster names travel with the order. The invite link tells teammates that the captain covered the team.
 6. Add company name, sponsor contact, and logo follow-up instructions to the sponsor product.
