@@ -117,6 +117,7 @@ let searchTrackTimer;
 $('#site-search')?.addEventListener('input',e=>{searchTerm=e.target.value.toLowerCase().trim();renderProducts();if(searchTerm)location.hash='hats';clearTimeout(searchTrackTimer);searchTrackTimer=setTimeout(()=>{if(searchTerm)track('search',{search_term:searchTerm,results_count:Number($('.product-grid')?.dataset.count||0)})},500)});
 $('.mobile-menu')?.addEventListener('click',e=>{const d=$('.mobile-drawer');const open=!d.classList.contains('is-open');d.classList.toggle('is-open',open);e.currentTarget.setAttribute('aria-expanded',String(open))});
 $$('.mobile-drawer a').forEach(a=>a.addEventListener('click',()=>{$('.mobile-drawer').classList.remove('is-open');$('.mobile-menu')?.setAttribute('aria-expanded','false')}));
+$$('[data-hero-product]').forEach(link=>link.addEventListener('click',()=>{const selected=products.find(p=>p.handle===link.dataset.heroProduct);if(selected)track('select_item',{item_list_id:'homepage_hero',item_list_name:'Homepage hat lineup',items:[trackingItem(selected)]})}));
 $('.modal-close')?.addEventListener('click',closeProduct);$('.modal-backdrop')?.addEventListener('click',()=>{closeProduct();toggleBag(false)});$('.product-modal')?.addEventListener('cancel',e=>{e.preventDefault();closeProduct()});
 $('.modal-add')?.addEventListener('click',()=>{if(activeProduct)addProductToBag(activeProduct);closeProduct();toggleBag(true)});
 $('.bag-button')?.addEventListener('click',()=>toggleBag(true));$('.bag-close')?.addEventListener('click',()=>toggleBag(false));
