@@ -67,7 +67,7 @@ function renderGallery(media){
 }
 
 function loadVerifiedGallery(){
-  renderGallery(galleryViews.map(view=>({...view,src:`assets/product-gallery/${product.handle}/${view.file}?v=18`})));
+  renderGallery(galleryViews.map(view=>({...view,src:`assets/product-gallery/${product.handle}/${view.file}?v=19`})));
 }
 
 galleryPrev.addEventListener('click',()=>showMedia(activeMediaIndex-1,false,true));
@@ -96,5 +96,6 @@ const sameCollection=products.filter(item=>item.handle!==product.handle&&item.ca
 const otherCollections=products.filter(item=>item.handle!==product.handle&&!sameCollection.includes(item));
 const related=[...sameCollection,...otherCollections].slice(0,5);
 const relatedGrid=document.querySelector('.related-grid');
-relatedGrid.innerHTML=related.map(item=>`<article class="product-card"><a href="product.html?handle=${encodeURIComponent(item.handle)}" data-related-handle="${item.handle}"><div class="product-visual">${item.badge?`<span class="product-badge ${item.badge==='Sold out'?'sold':''}">${item.badge==='Featured'?'New drop':item.badge}</span>`:''}<img src="${webp(item.file)}" alt="${item.title}" loading="lazy" decoding="async"></div><div class="product-details"><p class="product-kicker">${categoryLabel(item)}</p><div class="product-title-row"><h3>${item.title}</h3><p class="product-price">${money(item.price)}</p></div><span>VIEW HAT<b>→</b></span></div></a></article>`).join('');
+relatedGrid.innerHTML=related.map(item=>`<article class="product-card"><a href="product.html?handle=${encodeURIComponent(item.handle)}" data-related-handle="${item.handle}"><div class="product-visual">${item.badge?`<span class="product-badge ${item.badge==='Sold out'?'sold':''}">${item.badge==='Featured'?'New drop':item.badge}</span>`:''}<img src="${galleryView(item.handle)}" data-front-src="${galleryView(item.handle)}" data-angle-src="${galleryView(item.handle,'three-quarter')}" alt="${item.title}" loading="lazy" decoding="async"><span class="product-angle-cue" aria-hidden="true">Front&nbsp; / &nbsp;Angle</span></div><div class="product-details"><p class="product-kicker">${categoryLabel(item)}</p><div class="product-title-row"><h3>${item.title}</h3><p class="product-price">${money(item.price)}</p></div><span>VIEW HAT<b>→</b></span></div></a></article>`).join('');
+window.bindProductCardPreviews?.(relatedGrid);
 relatedGrid.addEventListener('click',event=>{const link=event.target.closest('[data-related-handle]');if(!link)return;const selected=products.find(item=>item.handle===link.dataset.relatedHandle);if(selected)window.BHTrack?.('select_item',{item_list_id:'related_products',item_list_name:'More from the drop',items:[{item_id:selected.handle,item_name:selected.title,item_category:categoryLabel(selected),price:selected.price,quantity:1}]})});

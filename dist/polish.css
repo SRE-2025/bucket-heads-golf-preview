@@ -290,6 +290,29 @@ body{background:var(--paper);overflow-x:hidden}
 .filters{scroll-snap-type:x proximity;scrollbar-width:thin}
 .filter{scroll-snap-align:start}
 
+/* v14: responsive wholesale fixes and multi-angle catalog previews */
+.product-angle-cue{position:absolute;z-index:3;right:12px;bottom:12px;padding:7px 9px;border:1px solid rgba(11,13,11,.1);border-radius:99px;background:rgba(255,255,255,.9);color:#4f5751;font-size:8px;font-weight:800;line-height:1;letter-spacing:.1em;text-transform:uppercase;opacity:0;transform:translateY(5px);transition:opacity .2s ease,transform .2s ease;backdrop-filter:blur(7px)}
+.product-card:hover .product-angle-cue,.product-card:focus-within .product-angle-cue,.product-card.is-angle .product-angle-cue{opacity:1;transform:none}
+.wholesale-builder,.wholesale-faq{min-width:0}
+.wholesale-builder>*,.wholesale-faq>*{min-width:0}
+.wholesale-faq{grid-template-columns:minmax(0,40%) minmax(0,1fr);gap:min(7vw,90px)}
+
+@media(max-width:1180px){
+  .wholesale-builder{grid-template-columns:minmax(0,1fr);gap:48px}
+  .builder-intro{position:static;max-width:720px}
+  .wholesale-faq{grid-template-columns:minmax(0,1fr);gap:32px}
+}
+
+@media(max-width:760px){
+  .wholesale-builder{gap:34px}
+  .product-gallery-thumbs{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;overflow:visible}
+  .product-gallery-thumb{grid-template-rows:68px auto;min-width:0;padding:5px}
+  .product-gallery-thumb img{height:68px}
+  .product-gallery-thumb span{padding-inline:1px;font-size:8px;letter-spacing:.06em}
+}
+
+@media(hover:none){.product-angle-cue{display:none}}
+
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
