@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="polish.css?v=20">
+  <link rel="stylesheet" href="polish.css?v=21">
 </head>
 <body class="tournament-page">
   <div class="announce"><span>PRIVATE DESIGN PREVIEW · CURRENT SHOPIFY EVENT PATHS</span></div>
@@ -63,8 +63,7 @@
 
         <form class="team-builder-form" id="captain-team-form">
           <div class="team-fields">
-            <label><span>Team name</span><input name="team_name" autocomplete="organization" placeholder="The Birdie Boys" maxlength="54" required></label>
-            <label><span>Captain name</span><input name="captain_name" autocomplete="name" placeholder="First and last name" maxlength="70" required></label>
+            <label class="team-field-wide"><span>Captain name</span><input name="captain_name" autocomplete="name" placeholder="First and last name" maxlength="70" required></label>
             <label><span>Captain email</span><input name="captain_email" type="email" autocomplete="email" placeholder="captain@email.com" required></label>
             <label><span>Captain phone</span><input name="captain_phone" type="tel" autocomplete="tel" placeholder="(512) 555-0123" required></label>
           </div>
@@ -90,7 +89,8 @@
         <section class="team-ready" id="team-ready" hidden aria-live="polite">
           <span class="team-ready-check">✓</span>
           <p class="eyebrow">TEAM LINK READY</p>
-          <h3><span data-ready-team-name>Your team</span> is set.</h3>
+          <h3>Your team is set.</h3>
+          <p class="team-captain-line">Captain: <strong data-ready-captain>Your captain</strong></p>
           <p class="team-ready-copy" data-ready-copy></p>
           <div class="team-code-box"><span>TEAM CODE</span><strong data-team-code>BH-OC-000000</strong></div>
           <label class="share-link-field"><span>Link for the group chat</span><input data-team-link readonly aria-label="Team signup link"></label>
@@ -112,7 +112,7 @@
         <form class="team-join" id="team-join-form" method="post" action="https://bucketheadsgolf.com/cart/add" accept-charset="UTF-8" hidden>
           <span class="join-badge">CAPTAIN’S LINK</span>
           <p class="eyebrow">YOU’RE JOINING</p>
-          <h3 data-join-team-name>YOUR TEAM.</h3>
+          <h3>JOIN <span data-join-captain>YOUR CAPTAIN</span>.</h3>
           <p>Pay your own $175 entry. Your team code will be attached automatically so Bucket Heads can match all six players.</p>
           <div class="team-code-box"><span>TEAM CODE</span><strong data-join-team-code></strong></div>
           <div class="team-fields">
@@ -125,7 +125,7 @@
           <input type="hidden" name="return_to" value="/cart">
           <input type="hidden" name="properties[Event]" value="Onion Creek Club Scramble">
           <input type="hidden" name="properties[Team Code]" data-join-code-input>
-          <input type="hidden" name="properties[Team Name]" data-join-name-input>
+          <input type="hidden" name="properties[Captain Name]" data-join-captain-input>
           <input type="hidden" name="properties[Registration Role]" value="Teammate">
           <input type="hidden" name="properties[Payment Plan]" value="Separate player payment">
           <button class="button button-dark" type="submit">Pay my $175 entry <span>↗</span></button>
@@ -135,7 +135,7 @@
         <section class="team-covered" hidden>
           <span class="team-ready-check">✓</span>
           <p class="eyebrow">YOU’RE ON THE TEAM</p>
-          <h3 data-covered-team-name>YOUR TEAM.</h3>
+          <h3><span data-covered-captain>YOUR CAPTAIN</span> COVERED THE TEAM.</h3>
           <p>Your captain selected the full-team option and is covering all six entries. Send your name to the captain so they can complete the roster.</p>
           <div class="team-code-box"><span>TEAM CODE</span><strong data-covered-team-code></strong></div>
           <a class="button button-light" href="tournament.html">Start another team</a>
@@ -146,7 +146,7 @@
     <section class="tournament-path" aria-labelledby="tournament-path-title">
       <div class="tournament-path-heading"><p class="eyebrow">ONE TEAM · TWO WAYS TO PAY</p><h2 id="tournament-path-title">START IT. SHARE IT. PLAY TOGETHER.</h2></div>
       <div class="tournament-path-grid">
-        <article><span>CAPTAIN</span><h3>CREATE THE TEAM.</h3><p>Name the team, identify the captain, and choose how the group will pay.</p><a class="text-link" href="#team-signup">Start the team <span>↓</span></a></article>
+        <article><span>CAPTAIN</span><h3>CREATE THE TEAM.</h3><p>Identify the captain and choose how the six-player group will pay.</p><a class="text-link" href="#team-signup">Start the team <span>↓</span></a></article>
         <article><span>$175 EACH</span><h3>SHARE &amp; SPLIT.</h3><p>Drop one link in the group chat. Every player pays separately under the same team code.</p><a class="text-link" href="#team-signup">Choose separate payments <span>↓</span></a></article>
         <article><span>$400</span><h3>HOLE SPONSOR.</h3><p>Put your company behind the event with a current sponsor package.</p><a class="text-link" href="https://bucketheadsgolf.com/products/scramble-hole-sponsor" data-tournament-cta data-event-name="Onion Creek Club Scramble" data-registration-type="hole-sponsor">Choose sponsorship <span>↗</span></a></article>
       </div>
@@ -176,6 +176,6 @@
   <div class="toast" role="status" aria-live="polite"></div>
   <script src="app.js?v=18"></script>
   <script src="tracking.js?v=5"></script>
-  <script src="tournament.js?v=1"></script>
+  <script src="tournament.js?v=2"></script>
 </body>
 </html>

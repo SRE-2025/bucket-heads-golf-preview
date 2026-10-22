@@ -30,7 +30,7 @@
     url.hash='team-signup';
     url.searchParams.set(team.plan==='split'?'join':'covered','1');
     url.searchParams.set('team',team.code);
-    url.searchParams.set('teamName',team.name);
+    url.searchParams.set('captain',team.captainName);
     return url.toString();
   }
 
@@ -48,18 +48,17 @@
     const link=makeTeamLink(team);
     const properties=ready.querySelector('[data-line-properties]');
     properties.replaceChildren();
-    setText('[data-ready-team-name]',team.name,ready);
+    setText('[data-ready-captain]',team.captainName,ready);
     setText('[data-team-code]',team.code,ready);
     ready.querySelector('[data-team-link]').value=link;
     ready.querySelector('[data-checkout-variant]').value=team.plan==='split'?SINGLE_VARIANT:TEAM_VARIANT;
     setText('[data-checkout-label]',team.plan==='split'?'Pay my $175 entry ↗':'Pay $1,050 for all six ↗',ready);
     setText('[data-ready-copy]',team.plan==='split'
-      ?'Your spot is ready. Share this link with the other five players so each person can register and pay under the same team code.'
+      ?'Your spot is ready. Share this link with the other five players so each person can register and pay under your captain code.'
       :'All six spots will be covered in one checkout. Share the link so the group knows the team is registered.',ready);
     const values={
       'Event':EVENT_NAME,
       'Team Code':team.code,
-      'Team Name':team.name,
       'Registration Role':'Captain',
       'Captain Name':team.captainName,
       'Captain Email':team.captainEmail,
@@ -87,7 +86,6 @@
     const data=new FormData(captainForm);
     showCaptainResult({
       code:makeCode(),
-      name:clean(data.get('team_name')),
       captainName:clean(data.get('captain_name')),
       captainEmail:clean(data.get('captain_email')),
       captainPhone:clean(data.get('captain_phone')),
@@ -97,14 +95,14 @@
   });
 
   ready.querySelector('[data-share-team]').addEventListener('click',async()=>{
-    const teamName=ready.querySelector('[data-ready-team-name]').textContent;
+    const captainName=ready.querySelector('[data-ready-captain]').textContent;
     const link=ready.querySelector('[data-team-link]').value;
     const split=ready.querySelector('[data-checkout-variant]').value===SINGLE_VARIANT;
     const text=split
-      ?`${teamName} is set for the ${EVENT_NAME}. Use this link to join our team and pay your $175 entry:`
-      :`${teamName} is set for the ${EVENT_NAME}. The captain is covering all six entries. Team details:`;
+      ?`${captainName} is captain for the ${EVENT_NAME}. Use this link to join the team and pay your $175 entry:`
+      :`${captainName} is captain for the ${EVENT_NAME} and is covering all six entries. Team details:`;
     try{
-      if(navigator.share)await navigator.share({title:`${teamName} tournament team`,text,url:link});
+      if(navigator.share)await navigator.share({title:`${captainName}'s tournament team`,text,url:link});
       else{await navigator.clipboard.writeText(`${text} ${link}`);setText('[data-share-team]','Message copied ✓',ready)}
       track('share_tournament_team',{team_code:ready.querySelector('[data-team-code]').textContent,share_method:navigator.share?'native_share':'clipboard'});
     }catch(error){if(error?.name!=='AbortError')setText('[data-share-team]','Copy the link below',ready)}
@@ -146,22 +144,22 @@
 
   function loadSharedTeam(){
     const code=clean(params.get('team')).toUpperCase();
-    const name=clean(params.get('teamName'))||'Your team';
+    const captainName=clean(params.get('captain')||params.get('teamName'))||'Your captain';
     if(!/^BH-OC-[A-Z2-9]{6}$/.test(code))return;
     captainForm.hidden=true;
     intro.hidden=true;
     if(params.get('covered')==='1'){
       covered.hidden=false;
-      setText('[data-covered-team-name]',`${name}.`);
+      setText('[data-covered-captain]',captainName);
       setText('[data-covered-team-code]',code);
       track('view_covered_team_invite',{team_code:code});
       return;
     }
     joinForm.hidden=false;
-    setText('[data-join-team-name]',`${name}.`);
+    setText('[data-join-captain]',`${captainName}'S TEAM`);
     setText('[data-join-team-code]',code);
     joinForm.querySelector('[data-join-code-input]').value=code;
-    joinForm.querySelector('[data-join-name-input]').value=name;
+    joinForm.querySelector('[data-join-captain-input]').value=captainName;
     track('view_team_invite',{team_code:code,payment_plan:'split'});
   }
 
