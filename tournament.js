@@ -16,12 +16,12 @@
   const setText=(selector,value,root=builder)=>{const node=root.querySelector(selector);if(node)node.textContent=value};
   const track=(event,detail)=>window.BHTrack?.(event,{event_name:EVENT_NAME,...detail});
 
-  function makeCode(){
-    const alphabet='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-    const values=new Uint8Array(6);
+  function makeCode(captainName){
+    const firstName=clean(captainName).split(' ')[0].replace(/[^a-z0-9]/gi,'').toUpperCase().slice(0,8)||'CAPTAIN';
+    const values=new Uint16Array(1);
     if(window.crypto?.getRandomValues)window.crypto.getRandomValues(values);
-    else values.forEach((_,index)=>values[index]=Math.floor(Math.random()*256));
-    return `BH-OC-${[...values].map(value=>alphabet[value%alphabet.length]).join('')}`;
+    else values[0]=Math.floor(Math.random()*65536);
+    return `${firstName}-${1000+(values[0]%9000)}`;
   }
 
   function makeTeamLink(team){
@@ -84,9 +84,10 @@
     event.preventDefault();
     if(!captainForm.reportValidity())return;
     const data=new FormData(captainForm);
+    const captainName=clean(data.get('captain_name'));
     showCaptainResult({
-      code:makeCode(),
-      captainName:clean(data.get('captain_name')),
+      code:makeCode(captainName),
+      captainName,
       captainEmail:clean(data.get('captain_email')),
       captainPhone:clean(data.get('captain_phone')),
       plan:data.get('payment_plan'),
@@ -145,7 +146,7 @@
   function loadSharedTeam(){
     const code=clean(params.get('team')).toUpperCase();
     const captainName=clean(params.get('captain')||params.get('teamName'))||'Your captain';
-    if(!/^BH-OC-[A-Z2-9]{6}$/.test(code))return;
+    if(!/^[A-Z0-9]{1,8}-\d{4}$/.test(code))return;
     captainForm.hidden=true;
     intro.hidden=true;
     if(params.get('covered')==='1'){
