@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data:; connect-src 'none'; form-action 'none'; base-uri 'self'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="description" content="Bucket Heads Golf wholesale program preview.">
   <title>Wholesale — Bucket Heads Golf</title>
@@ -10,8 +12,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="polish.css?v=19">
+  <link rel="stylesheet" href="release.css?v=29">
+  <script src="preview-guard.js?v=29"></script>
+  <meta property="og:title" content="Bucket Heads Golf — Design Review">
+  <meta property="og:description" content="Review the next Bucket Heads experience: hats, apparel, custom orders and golf community.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://sre-2025.github.io/bucket-heads-golf-preview/assets/bucket-heads-logo.png">
+  <meta name="twitter:card" content="summary">
 </head>
 <body class="wholesale-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <noscript><p class="event-pending">This design preview needs JavaScript. Forms and payments are disabled. For assistance, email admin@bucketheadsgolf.com.</p></noscript>
   <div class="announce"><span>PRIVATE DESIGN PREVIEW · NO FORM IS SENT</span></div>
   <header class="site-header">
     <button class="mobile-menu" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
@@ -21,7 +32,7 @@
     <nav class="mobile-drawer"><a href="index.html#hats">Hats</a><a href="index.html#apparel">Apparel</a><a href="index.html#story">Story</a><a href="wholesale.html">Wholesale</a><a href="tournament.html">Tournament</a></nav>
   </header>
 
-  <main>
+  <main id="main-content" tabindex="-1">
     <section class="wholesale-hero">
       <div><p class="pill">CUSTOM HATS AT WHOLESALE PRICING.</p><h1>YOUR PEOPLE.<br>YOUR MARK.<br><em>BUILT TO ORDER.</em></h1><p>Premium custom hats for companies, crews, schools, athletic programs, golf organizations, brands, foundations, and events—starting at 50 pieces.</p><a class="button button-dark" href="#builder">Build your inquiry ↘</a></div>
       <div class="wholesale-stack">
@@ -68,7 +79,7 @@
 
     <section class="wholesale-builder" id="builder">
       <div class="builder-intro"><p class="eyebrow">CUSTOM HAT BUILDER</p><h2>TELL US WHAT<br>YOU’RE BUILDING.</h2><p>A few quick choices create a clear custom-hat brief for your company, crew, school, athletic program, golf organization, brand, foundation, or event.</p></div>
-      <form class="builder-form" novalidate>
+      <form inert class="builder-form" novalidate>
         <div class="builder-step is-current" data-step="1">
           <div class="step-label"><span>01</span><p>Choose your program</p></div>
           <div class="choice-grid program-grid">
@@ -132,8 +143,14 @@
       </div>
     </section>
   </main>
-  <footer class="site-footer"><a class="footer-mark" href="index.html">BUCKET<br>HEADS<span>FORE EVERYONE.</span></a><div><p>Preview</p><a href="index.html">Home</a><a href="index.html#hats">All hats</a><a href="tournament.html">Tournament</a></div><div><p>Wholesale</p><a href="#builder">Build inquiry</a><a href="mailto:admin@bucketheadsgolf.com">Email team</a></div><small>Private design preview · © 2026 Bucket Heads Golf</small></footer>
+  <footer class="site-footer">
+    <div class="footer-support"><div><a href="https://bucketheadsgolf.com/pages/privacy-policy" target="_blank" rel="noopener">Privacy policy ↗</a><a href="https://bucketheadsgolf.com/pages/terms-conditions" target="_blank" rel="noopener">Terms ↗</a><a href="https://bucketheadsgolf.com/pages/return-policy" target="_blank" rel="noopener">Returns ↗</a><p>Questions about fit, shipping or a custom order? <a href="mailto:admin@bucketheadsgolf.com">admin@bucketheadsgolf.com</a></p></div><p>Policy links open the current store's published policies.<br>No payment or form submission is made from this preview.</p></div>
+<a class="footer-mark" href="index.html">BUCKET<br>HEADS<span>FORE EVERYONE.</span></a><div><p>Preview</p><a href="index.html">Home</a><a href="index.html#hats">All hats</a><a href="tournament.html">Tournament</a></div><div><p>Wholesale</p><a href="#builder">Build inquiry</a><a href="mailto:admin@bucketheadsgolf.com">Email team</a></div><small>Private design preview · © 2026 Bucket Heads Golf</small></footer>
   <div class="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=18"></script><script src="tracking.js?v=4"></script><script src="wholesale.js?v=2"></script>
+  <script src="catalog-data.js?v=29"></script>
+  <script src="tracking.js?v=29"></script>
+  <script src="app.js?v=29"></script>
+  <script src="support.js?v=29"></script>
+  <script src="wholesale.js?v=29"></script>
 </body>
 </html>

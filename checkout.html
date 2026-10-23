@@ -1,95 +1,30 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow,noarchive">
-  <meta name="description" content="Bucket Heads Golf mobile checkout design preview.">
-  <title>Checkout Preview — Bucket Heads Golf</title>
-  <link rel="icon" href="assets/bucket-heads-logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="polish.css?v=19">
+<meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data:; connect-src 'none'; form-action 'none'; base-uri 'self'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Checkout review — Bucket Heads Golf</title>
+<link rel="icon" href="assets/bucket-heads-logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="polish.css?v=29"><link rel="stylesheet" href="release.css?v=29">
+<script src="preview-guard.js?v=29"></script>
 </head>
 <body class="checkout-page">
-  <div class="announce"><span>PRIVATE CHECKOUT PREVIEW · NO PAYMENT IS COLLECTED</span></div>
-  <header class="checkout-header">
-    <a href="index.html" aria-label="Return to Bucket Heads Golf"><img src="assets/bucket-heads-logo.png" alt="Bucket Heads Golf"></a>
-    <span aria-label="Secure checkout preview">✓ Secure checkout preview</span>
-  </header>
-
-  <main class="checkout-shell">
-    <a class="checkout-back" href="index.html#hats">← Continue shopping</a>
-    <div class="checkout-progress" aria-label="Checkout progress"><span class="is-complete">Bag</span><span class="is-active">Information</span><span>Payment</span></div>
-
-    <details class="checkout-summary-mobile">
-      <summary><span>Show order summary</span><strong class="checkout-total">$0.00</strong></summary>
-      <div class="checkout-summary-card"><div class="checkout-items"></div><div class="checkout-totals"></div></div>
-    </details>
-
-    <div class="checkout-layout">
-      <section class="checkout-content" aria-labelledby="checkout-title">
-        <div class="checkout-form-wrap">
-          <p class="eyebrow">FAST, CLEAR, GUEST-FRIENDLY</p>
-          <h1 id="checkout-title">CHECKOUT.</h1>
-          <p class="checkout-intro">One page, only the fields needed to finish. No account required.</p>
-
-          <div class="checkout-empty" hidden>
-            <h2>Your bag is empty.</h2>
-            <p>Add a hat before testing the checkout flow.</p>
-            <a class="button button-dark" href="index.html#hats">Shop all hats</a>
-          </div>
-
-          <form class="checkout-form" novalidate>
-            <fieldset>
-              <legend><span>01</span> Contact</legend>
-              <label class="checkout-field checkout-field-wide"><span>Email address</span><input name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required></label>
-              <label class="checkout-check"><input name="marketing" type="checkbox"><span>Email me occasional drops and golf stories</span></label>
-            </fieldset>
-
-            <fieldset>
-              <legend><span>02</span> Delivery</legend>
-              <div class="checkout-fields">
-                <label class="checkout-field"><span>First name</span><input name="first_name" autocomplete="given-name" required></label>
-                <label class="checkout-field"><span>Last name</span><input name="last_name" autocomplete="family-name" required></label>
-                <label class="checkout-field checkout-field-wide"><span>Address</span><input name="address" autocomplete="street-address" required></label>
-                <label class="checkout-field checkout-field-wide"><span>Apartment, suite, etc. <i>Optional</i></span><input name="address_2" autocomplete="address-line2"></label>
-                <label class="checkout-field"><span>City</span><input name="city" autocomplete="address-level2" required></label>
-                <label class="checkout-field"><span>State</span><input name="state" autocomplete="address-level1" required></label>
-                <label class="checkout-field"><span>ZIP code</span><input name="postal_code" autocomplete="postal-code" inputmode="numeric" required></label>
-                <label class="checkout-field"><span>Phone <i>Optional</i></span><input name="phone" autocomplete="tel" inputmode="tel"></label>
-              </div>
-            </fieldset>
-
-            <fieldset>
-              <legend><span>03</span> Shipping</legend>
-              <label class="shipping-choice"><input type="radio" name="shipping" value="standard" checked><span><b>Standard shipping</b><small>Final timing and rate shown by Shopify</small></span><strong>Calculated</strong></label>
-            </fieldset>
-
-            <button class="button button-green checkout-submit" type="submit">Continue to secure payment</button>
-            <p class="checkout-fineprint">Preview only. Card information is never requested or stored here. The production button will continue into Shopify’s secure payment step.</p>
-          </form>
-
-          <div class="checkout-complete" role="status" hidden>
-            <span>✓</span>
-            <p class="eyebrow">FLOW COMPLETE</p>
-            <h2>READY FOR SECURE PAYMENT.</h2>
-            <p>This preview stops before payment. In production, Shopify takes over here so the customer can finish safely.</p>
-            <a class="button button-dark" href="index.html#hats">Back to the hat shop</a>
-          </div>
-        </div>
-      </section>
-
-      <aside class="checkout-summary" aria-label="Order summary">
-        <div class="checkout-summary-card"><p class="eyebrow">YOUR ORDER</p><div class="checkout-items"></div><div class="checkout-totals"></div><div class="checkout-confidence"><span>✓ Guest checkout</span><span>✓ Secure Shopify payment</span><span>✓ No surprise fields</span></div></div>
-      </aside>
-    </div>
-  </main>
-
-  <script src="app.js?v=17"></script>
-  <script src="tracking.js?v=4"></script>
-  <script src="checkout.js?v=1"></script>
-</body>
-</html>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<div class="announce"><span>DESIGN PREVIEW · NO PAYMENT OR ORDER IS CREATED</span></div>
+<header class="checkout-header"><a class="brand" href="index.html" aria-label="Bucket Heads home"><img src="assets/bucket-heads-logo.png" alt="Bucket Heads Golf"></a></header>
+<main id="main-content" tabindex="-1">
+<section class="preview-checkout"><p class="eyebrow">YOUR BAG, READY TO REVIEW</p><h1>ONE SECURE CHECKOUT.</h1><div class="checkout-items"></div><p class="checkout-empty" hidden>Your bag is empty. Add a hat or apparel item to preview the order summary.</p>
+<div class="checkout-totals"></div>
+<p>When the new store is approved, this step will hand your bag directly to Shopify. You’ll enter your delivery and payment details there once—not in a separate form here.</p>
+<ol><li>Confirm your items and sizes.</li><li>Choose shipping and see the final total in Shopify.</li><li>Pay securely and receive your order confirmation.</li></ol>
+<button class="button button-dark checkout-demo" type="button">Preview the handoff</button>
+<p class="form-status" role="status"></p>
+<p><a href="index.html#hats">← Continue shopping</a> · <a href="mailto:admin@bucketheadsgolf.com">Questions? Contact the team</a></p>
+<p><small>This dummy site never asks for your address or card details, and never creates a live order.</small></p>
+</section></main>
+<div class="toast" role="status"></div>
+<script src="catalog-data.js?v=29"></script><script src="tracking.js?v=29"></script><script src="app.js?v=29"></script><script src="checkout.js?v=29"></script>
+</body></html>

@@ -1,63 +1,34 @@
 (function(){
-  const STORAGE_KEY='bh-attribution-v1';
-  const SESSION_KEY='bh-session-v1';
-  const EVENT_KEY='bh-preview-events-v1';
-  const params=new URLSearchParams(location.search);
-  const safeRead=(storage,key)=>{try{return JSON.parse(storage.getItem(key)||'null')}catch{return null}};
-  const safeWrite=(storage,key,value)=>{try{storage.setItem(key,JSON.stringify(value))}catch{}}
-  const referrerHost=(()=>{try{return document.referrer?new URL(document.referrer).hostname:''}catch{return ''}})();
-  const campaignTouch={
-    source:params.get('utm_source')||referrerHost||'direct',
-    medium:params.get('utm_medium')||(referrerHost?'referral':'none'),
-    campaign:params.get('utm_campaign')||'(not set)',
-    term:params.get('utm_term')||'(not set)',
-    content:params.get('utm_content')||'(not set)',
-    landing_path:location.pathname
-  };
-  const hasCampaign=['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].some(key=>params.has(key));
-  let firstTouch=safeRead(localStorage,STORAGE_KEY);
-  if(!firstTouch){firstTouch=campaignTouch;safeWrite(localStorage,STORAGE_KEY,firstTouch)}
-  let lastTouch=safeRead(sessionStorage,`${STORAGE_KEY}-last`);
-  if(!lastTouch||hasCampaign){lastTouch=campaignTouch;safeWrite(sessionStorage,`${STORAGE_KEY}-last`,lastTouch)}
-  let sessionId=sessionStorage.getItem(SESSION_KEY);
-  if(!sessionId){sessionId=crypto.randomUUID?.()||`bh-${Date.now()}-${Math.random().toString(16).slice(2)}`;try{sessionStorage.setItem(SESSION_KEY,sessionId)}catch{}}
-  const pageType=document.body.classList.contains('product-page')?'product':document.body.classList.contains('wholesale-page')?'wholesale':document.body.classList.contains('tournament-page')?'tournament':document.body.classList.contains('checkout-page')?'checkout':'home';
-  const events=[];
-  let recentEvents=safeRead(localStorage,EVENT_KEY)||[];
-  if(!Array.isArray(recentEvents))recentEvents=[];
-  window.dataLayer=window.dataLayer||[];
-  function track(event,detail={}){
-    const payload={
-      event,
-      event_id:crypto.randomUUID?.()||`${Date.now()}-${Math.random().toString(16).slice(2)}`,
-      event_time:new Date().toISOString(),
-      page_type:pageType,
-      page_path:location.pathname,
-      session_id:sessionId,
-      first_touch_source:firstTouch.source,
-      first_touch_medium:firstTouch.medium,
-      first_touch_campaign:firstTouch.campaign,
-      last_touch_source:lastTouch.source,
-      last_touch_medium:lastTouch.medium,
-      last_touch_campaign:lastTouch.campaign,
-      ...detail
-    };
-    events.push(payload);
-    if(events.length>100)events.shift();
-    recentEvents.push(payload);
-    if(recentEvents.length>250)recentEvents=recentEvents.slice(-250);
-    safeWrite(localStorage,EVENT_KEY,recentEvents);
-    window.dataLayer.push(payload);
-    document.documentElement.dataset.trackingLastEvent=event;
-    window.dispatchEvent(new CustomEvent('bh:track',{detail:payload}));
-    return payload;
-  }
-  window.BHTrack=track;
-  window.BHTracking={track,events,recentEvents,sessionId,attribution:{first:firstTouch,last:lastTouch}};
-  document.addEventListener('click',event=>{const link=event.target.closest?.('[data-tournament-cta]');if(!link)return;track('select_tournament_registration',{event_name:link.dataset.eventName||'Onion Creek Club Scramble',registration_type:link.dataset.registrationType||'event-details',destination:link.href,signup_system:'shopify_products'})});
-  document.documentElement.dataset.trackingReady='true';
-  document.documentElement.dataset.trackingSource=lastTouch.source;
-  document.documentElement.dataset.trackingMedium=lastTouch.medium;
-  document.documentElement.dataset.trackingCampaign=lastTouch.campaign;
-  track('page_view',{page_title:document.title});
+ const preview=(window.BHRuntime?.mode||'preview')!=='shopify',events=[];
+ const consent=()=>!preview&&window.Shopify?.customerPrivacy?.analyticsProcessingAllowed?.()===true;
+ const safe=value=>String(value||'').slice(0,100).replace(/[^a-zA-Z0-9_. /()-]/g,'').trim();
+ const read=(key)=>{try{return JSON.parse(localStorage.getItem(key)||'null')}catch{return null}};
+ const remove=()=>{try{localStorage.removeItem('bh-attribution-v2')}catch{}};
+ const params=new URLSearchParams(location.search);
+ const cleanCampaign=value=>!value||/[@]|%40/i.test(value)?undefined:safe(value);
+ const touch={source:cleanCampaign(params.get('utm_source'))||'direct',medium:cleanCampaign(params.get('utm_medium'))||'none',campaign:cleanCampaign(params.get('utm_campaign'))||'(not set)'};
+ if(!params.get('utm_source')&&document.referrer)try{const ref=new URL(document.referrer);if(ref.origin!==location.origin){touch.source=ref.hostname;touch.medium='referral'}}catch{}
+ function attribution(){
+  if(!consent())return null;const now=Date.now();let saved=read('bh-attribution-v2');
+  if(!saved||now-saved.created>90*86400000)saved={created:now,first:touch,last:touch};
+  else if(params.has('utm_source'))saved.last=touch;
+  try{localStorage.setItem('bh-attribution-v2',JSON.stringify(saved))}catch{}
+  return saved;
+ }
+ const strings=['item_list_id','item_list_name','program','quantity_tier','timing','registration_role','payment_plan','lead_type','photo_type','state'];
+ const numbers=['value','item_count','step_number','from_step','interest_count','photo_index','photo_count','results_count'];
+ function track(event,detail={}){
+  const payload={event:preview?'preview_'+safe(event):safe(event),preview_only:preview,page_path:location.pathname,event_time:new Date().toISOString()};
+  for(const key of strings)if(typeof detail[key]==='string')payload[key]=safe(detail[key]);
+  for(const key of numbers)if(Number.isFinite(detail[key]))payload[key]=detail[key];
+  if(detail.currency)payload.currency=safe(detail.currency);
+  if(Array.isArray(detail.items))payload.items=detail.items.slice(0,100).map(i=>({item_id:safe(i.item_id),item_variant:safe(i.item_variant),item_name:safe(i.item_name),item_category:safe(i.item_category),price:Number(i.price)||0,quantity:Number(i.quantity)||1}));
+  // Preview QA stays in memory: no cookies, stored event history, emails, names or search text.
+  events.push(payload);if(events.length>100)events.shift();
+  if(!preview&&consent()){const a=attribution();window.dataLayer=window.dataLayer||[];window.dataLayer.push({...payload,first_touch_source:a?.first.source,last_touch_source:a?.last.source,last_touch_medium:a?.last.medium,last_touch_campaign:a?.last.campaign});}
+  document.documentElement.dataset.trackingLastEvent=payload.event;return payload;
+ }
+ document.addEventListener('visitorConsentCollected',()=>{if(!consent())remove();else attribution()});
+ window.BHTrack=track;window.BHTracking={events,track,preview,consent};
+ track('page_view');
 })();

@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data:; connect-src 'none'; form-action 'none'; base-uri 'self'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="description" content="Bucket Heads Golf storefront redesign preview.">
@@ -12,8 +14,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="polish.css?v=19">
+  <link rel="stylesheet" href="release.css?v=29">
+  <script src="preview-guard.js?v=29"></script>
+  <meta property="og:title" content="Bucket Heads Golf — Design Review">
+  <meta property="og:description" content="Hats, apparel, custom orders and golf community.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://sre-2025.github.io/bucket-heads-golf-preview/assets/bucket-heads-logo.png">
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<noscript><p class="event-pending">This design preview needs JavaScript. Orders and forms are disabled.</p></noscript>
   <div class="announce"><span>PRIVATE DESIGN PREVIEW · NO LIVE ORDERS</span></div>
   <header class="site-header" id="top">
     <button class="mobile-menu" type="button" aria-label="Open menu" aria-expanded="false">
@@ -50,7 +60,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="main-content" tabindex="-1">
     <section class="hero">
       <div class="hero-art" aria-label="Bucket Heads hats">
         <span class="hero-orbit"></span>
@@ -70,7 +80,7 @@
     </section>
 
     <a class="tournament-strip" href="tournament.html" data-tournament-cta data-event-name="Onion Creek Club Scramble">
-      <span>REGISTRATION OPEN</span>
+      <span>TOURNAMENT PREVIEW</span>
       <strong>ONION CREEK CLUB · 6-PLAYER SCRAMBLE</strong>
       <b>EVENT DETAILS <i>↗</i></b>
     </a>
@@ -101,7 +111,7 @@
           <p class="eyebrow">BEYOND THE BRIM</p>
           <h2 id="apparel-title">BUCKET HEADS APPAREL.</h2>
         </div>
-        <p>Easy everyday tees made for the course, the lake, and everywhere the round takes you.</p>
+        <p>Tees, polos and quarter-zips for the course and everywhere after.</p>
       </div>
       <div class="apparel-grid">
         <a class="apparel-card apparel-card-product apparel-card-black" href="https://bucketheadsgolf.com/products/unisex-t-shrit">
@@ -123,7 +133,7 @@
       <div class="story-collage">
         <img class="story-photo-main" src="assets/lifestyle/story-pink-hat.jpg" alt="Friends wearing Bucket Heads hats and apparel" loading="lazy">
         <img class="story-photo-detail" src="assets/lifestyle/story-white-hat.jpg" alt="Bucket Heads hat and apparel detail" loading="lazy">
-        <span>FOUNDED BY TIM + TRAVIS</span>
+        <span>The Bucket Heads community</span>
       </div>
       <div class="story-copy">
         <p class="eyebrow">OUR STORY</p>
@@ -147,12 +157,15 @@
     </section>
   </main>
 
-  <footer class="site-footer">
+  <section class="newsletter" aria-labelledby="newsletter-title">
+<div><p class="eyebrow">STAY IN THE LOOP</p><h2 id="newsletter-title">GOOD HATS. FIRST DIBS.</h2><p>New drops, golf days and news from the Bucket Heads crew.</p></div>
+<form class="newsletter-form" inert action="#" method="post"><label for="newsletter-email">Email address</label><div class="newsletter-controls"><input id="newsletter-email" type="email" name="contact[email]" autocomplete="email" required placeholder="you@example.com"><button class="button button-green" type="submit">Keep me posted</button></div><p class="form-status" role="status">Preview only — no email is sent or saved.</p></form></section>
+<footer class="site-footer">
     <a class="footer-mark" href="#top">BUCKET<br>HEADS<span>FORE EVERYONE.</span></a>
     <div><p>Shop</p><a href="#hats">All hats</a><a href="#apparel">Apparel</a><a href="#hats">Game Day</a></div>
     <div><p>About</p><a href="#story">Fore Everyone</a><a href="wholesale.html">Wholesale</a><a href="tournament.html">Tournament</a><a href="https://bucketheadsgolf.com/blogs/news">Stories</a></div>
     <div><p>Follow</p><a href="https://www.instagram.com/bucketheadsgolf/">Instagram</a><a href="https://www.facebook.com/thebucketheadsgolf">Facebook</a><a href="https://www.tiktok.com/@bucket.heads.golf">TikTok</a></div>
-    <small>Private design preview · © 2026 Bucket Heads Golf</small>
+    <div class="footer-support"><p>HELP &amp; POLICIES</p><a href="mailto:admin@bucketheadsgolf.com">Contact the crew</a><a href="https://bucketheadsgolf.com/pages/return-policy" target="_blank" rel="noopener">Returns</a><a href="https://bucketheadsgolf.com/pages/privacy-policy" target="_blank" rel="noopener">Privacy</a><a href="https://bucketheadsgolf.com/pages/terms-conditions" target="_blank" rel="noopener">Terms</a><small>Policy links open the current Bucket Heads website.</small></div><small>Private design preview · © 2026 Bucket Heads Golf</small>
   </footer>
 
   <aside class="bag-drawer" role="dialog" aria-modal="true" aria-label="Preview bag" aria-hidden="true">
@@ -163,7 +176,11 @@
   </aside>
   <button class="bag-backdrop" type="button" aria-label="Close preview bag" hidden></button>
   <div class="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=18"></script>
-  <script src="tracking.js?v=4"></script>
+
+
+<script src="catalog-data.js?v=29"></script>
+<script src="tracking.js?v=29"></script>
+<script src="app.js?v=29"></script>
+<script src="support.js?v=29"></script>
 </body>
 </html>

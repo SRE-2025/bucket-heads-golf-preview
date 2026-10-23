@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data:; connect-src 'none'; form-action 'none'; base-uri 'self'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="description" content="Bucket Heads Golf registration options for the current Onion Creek Club six-player scramble.">
@@ -12,9 +14,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="polish.css?v=21">
+  <link rel="stylesheet" href="release.css?v=29">
+  <script src="preview-guard.js?v=29"></script>
+  <meta property="og:title" content="Bucket Heads Golf — Design Review">
+  <meta property="og:description" content="Review the next Bucket Heads experience: hats, apparel, custom orders and golf community.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://sre-2025.github.io/bucket-heads-golf-preview/assets/bucket-heads-logo.png">
+  <meta name="twitter:card" content="summary">
 </head>
 <body class="tournament-page">
-  <div class="announce"><span>PRIVATE DESIGN PREVIEW · CURRENT SHOPIFY EVENT PATHS</span></div>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <noscript><p class="event-pending">This design preview needs JavaScript. Forms and payments are disabled. For assistance, email admin@bucketheadsgolf.com.</p></noscript>
+  <div class="announce"><span>DESIGN PREVIEW · NO LIVE PAYMENTS OR SIGNUPS</span></div>
   <header class="site-header">
     <button class="mobile-menu" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
     <nav class="nav-left" aria-label="Primary navigation"><a href="index.html#hats">Hats</a><a href="index.html#apparel">Apparel</a><a href="index.html#story">Story</a><a href="wholesale.html">Wholesale</a><a class="is-active" href="tournament.html">Tournament</a></nav>
@@ -27,12 +38,13 @@
     <nav class="mobile-drawer" aria-label="Mobile navigation"><a href="index.html#hats">Hats</a><a href="index.html#apparel">Apparel</a><a href="index.html#story">Story</a><a href="wholesale.html">Wholesale</a><a class="is-active" href="tournament.html">Tournament</a></nav>
   </header>
 
-  <main data-active-event="Onion Creek Club Scramble">
+  <main id="main-content" tabindex="-1" data-active-event="Onion Creek Club Scramble">
+    <aside class="event-pending"><strong>Event details awaiting confirmation.</strong> Date, tee time and registration deadline must be approved by Bucket Heads. All signup and payment actions here are demonstrations only.</aside>
     <section class="tournament-hero">
       <img src="https://bucketheadsgolf.com/cdn/shop/files/B18D170F-A1B2-494D-B7A7-EF4518F08EAC.jpg?v=1786587773&amp;width=1600" alt="Bucket Heads golfers gathered after a scramble">
       <div class="tournament-hero-shade"></div>
       <div class="tournament-hero-copy">
-        <p class="eyebrow">REGISTRATION OPEN</p>
+        <p class="eyebrow">EVENT PREVIEW</p>
         <h1>ONION CREEK<br>CLUB SCRAMBLE.</h1>
         <p>Six-player teams · Individual entries · Hole sponsorships</p>
         <div class="tournament-hero-actions">
@@ -61,7 +73,7 @@
           <div class="team-builder-steps" aria-label="Signup steps"><span><b>1</b> Captain starts</span><span><b>2</b> Share the link</span><span><b>3</b> Players pay</span></div>
         </div>
 
-        <form class="team-builder-form" id="captain-team-form">
+        <form inert class="team-builder-form" id="captain-team-form">
           <div class="team-fields">
             <label class="team-field-wide"><span>Captain name</span><input name="captain_name" autocomplete="name" placeholder="First and last name" maxlength="70" required></label>
             <label><span>Captain email</span><input name="captain_email" type="email" autocomplete="email" placeholder="captain@email.com" required></label>
@@ -98,7 +110,7 @@
             <button class="button button-light" type="button" data-share-team>Share in group chat <span>↗</span></button>
             <button class="team-copy-button" type="button" data-copy-team>Copy link</button>
           </div>
-          <form class="shopify-team-checkout" method="post" action="https://bucketheadsgolf.com/cart/add" accept-charset="UTF-8">
+          <form inert class="shopify-team-checkout" method="post" action="#" accept-charset="UTF-8">
             <input type="hidden" name="id" data-checkout-variant>
             <input type="hidden" name="quantity" value="1">
             <input type="hidden" name="return_to" value="/cart">
@@ -109,7 +121,7 @@
           <small>Your team details travel with the registration into the existing Bucket Heads Shopify order.</small>
         </section>
 
-        <form class="team-join" id="team-join-form" method="post" action="https://bucketheadsgolf.com/cart/add" accept-charset="UTF-8" hidden>
+        <form inert class="team-join" id="team-join-form" method="post" action="#" accept-charset="UTF-8" hidden>
           <span class="join-badge">CAPTAIN’S LINK</span>
           <p class="eyebrow">YOU’RE JOINING</p>
           <h3>JOIN <span data-join-captain>YOUR CAPTAIN</span>.</h3>
@@ -153,12 +165,14 @@
     </section>
 
     <section class="tournament-assurance">
-      <div><p class="eyebrow">SAFE THEME HANDOFF</p><h2>SAME PRODUCTS.<br>SAME ORDERS.<br>ZERO LOST SALES.</h2></div>
-      <div><p>The redesign keeps the exact active Shopify products and gives every split payment the same team code. That lets Bucket Heads match separate orders to the correct captain and team without creating a second payment system.</p><a class="text-link" href="#team-signup">Build a team <span>↑</span></a></div>
+      <div><p class="eyebrow">QUESTIONS BEFORE YOU PLAY?</p><h2>ASK THE CREW.<br>WE’RE HERE TO HELP.</h2></div>
+      <div><p>Need help with your team, an existing registration or sponsorship? Contact Bucket Heads before making another payment. Keep your order confirmation handy so the team can help you.</p><a class="text-link" href="mailto:admin@bucketheadsgolf.com">Contact the crew <span>↗</span></a></div>
     </section>
   </main>
 
   <footer class="site-footer">
+    <div class="footer-support"><div><a href="https://bucketheadsgolf.com/pages/privacy-policy" target="_blank" rel="noopener">Privacy policy ↗</a><a href="https://bucketheadsgolf.com/pages/terms-conditions" target="_blank" rel="noopener">Terms ↗</a><a href="https://bucketheadsgolf.com/pages/return-policy" target="_blank" rel="noopener">Returns ↗</a><p>Questions about fit, shipping or a custom order? <a href="mailto:admin@bucketheadsgolf.com">admin@bucketheadsgolf.com</a></p></div><p>Policy links open the current store's published policies.<br>No payment or form submission is made from this preview.</p></div>
+
     <a class="footer-mark" href="index.html">BUCKET<br>HEADS<span>FORE EVERYONE.</span></a>
     <div><p>Shop</p><a href="index.html#hats">All hats</a><a href="index.html#apparel">Apparel</a><a href="index.html#hats">Game Day</a></div>
     <div><p>About</p><a href="index.html#story">Fore Everyone</a><a href="wholesale.html">Wholesale</a><a href="tournament.html">Tournament</a></div>
@@ -170,12 +184,14 @@
     <div class="bag-head"><div><p class="eyebrow">DESIGN PREVIEW</p><h2>YOUR BAG</h2></div><button class="bag-close" type="button" aria-label="Close bag">×</button></div>
     <p class="bag-note"><b>Preview only.</b> Nothing here creates an order or collects payment.</p>
     <div class="bag-items"></div>
-    <div class="bag-footer"><div><span><b class="bag-item-count-text">0 items</b><small>Subtotal</small></span><strong class="bag-total">$0.00</strong></div><p>Shipping and taxes are shown during checkout.</p><button class="button button-green mock-checkout" type="button" disabled>Add a hat to continue</button><button class="bag-continue" type="button">Continue shopping</button><div class="bag-assurance"><span>✓ Secure Shopify handoff</span><span>✓ Guest checkout</span></div></div>
+    <div class="bag-footer"><div><span><b class="bag-item-count-text">0 items</b><small>Subtotal</small></span><strong class="bag-total">$0.00</strong></div><p>Shipping and taxes are shown during checkout.</p><button class="button button-green mock-checkout" type="button" disabled>Add a hat to continue</button><button class="bag-continue" type="button">Continue shopping</button><div class="bag-assurance"><span>✓ Preview only · no payment</span><span>✓ Guest checkout</span></div></div>
   </aside>
   <button class="bag-backdrop" type="button" aria-label="Close preview bag" hidden></button>
   <div class="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=18"></script>
-  <script src="tracking.js?v=5"></script>
-  <script src="tournament.js?v=3"></script>
+  <script src="catalog-data.js?v=29"></script>
+  <script src="tracking.js?v=29"></script>
+  <script src="app.js?v=29"></script>
+  <script src="support.js?v=29"></script>
+  <script src="tournament.js?v=29"></script>
 </body>
 </html>

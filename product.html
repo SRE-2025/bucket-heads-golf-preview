@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data:; connect-src 'none'; form-action 'none'; base-uri 'self'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="description" content="Bucket Heads Golf product detail design preview.">
@@ -12,8 +14,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="polish.css?v=19">
+  <link rel="stylesheet" href="release.css?v=29">
+  <script src="preview-guard.js?v=29"></script>
+  <meta property="og:title" content="Bucket Heads Golf — Design Review">
+  <meta property="og:description" content="Review the next Bucket Heads experience: hats, apparel, custom orders and golf community.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://sre-2025.github.io/bucket-heads-golf-preview/assets/bucket-heads-logo.png">
+  <meta name="twitter:card" content="summary">
 </head>
 <body class="product-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <noscript><p class="event-pending">This design preview needs JavaScript. Forms and payments are disabled. For assistance, email admin@bucketheadsgolf.com.</p></noscript>
   <div class="announce"><span>PRIVATE DESIGN PREVIEW · NO LIVE ORDERS</span></div>
   <header class="site-header">
     <button class="mobile-menu" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
@@ -26,11 +37,11 @@
     <nav class="mobile-drawer" aria-label="Mobile navigation"><a href="index.html#hats">Hats</a><a href="index.html#apparel">Apparel</a><a href="index.html#story">Story</a><a href="wholesale.html">Wholesale</a><a href="tournament.html">Tournament</a></nav>
   </header>
 
-  <main>
+  <main id="main-content" tabindex="-1">
     <section class="product-page-shell">
       <div class="product-page-gallery">
         <div class="product-page-visual" tabindex="0" aria-label="Product photo gallery">
-          <span class="product-view-label">FOUR AI STUDIO VIEWS</span>
+          <span class="product-view-label">STUDIO GALLERY</span>
           <img id="product-page-image" src="" alt="" fetchpriority="high" decoding="async">
           <button class="gallery-arrow gallery-prev" type="button" aria-label="Previous product photo">←</button>
           <button class="gallery-arrow gallery-next" type="button" aria-label="Next product photo">→</button>
@@ -38,7 +49,7 @@
           <span class="gallery-count" aria-live="polite"></span>
         </div>
         <div class="product-gallery-thumbs" role="tablist" aria-label="Product views"></div>
-        <p class="gallery-source-note">Four uniform AI studio views recreated from this exact product’s approved catalog references. No people or lifestyle shots.</p>
+        <p class="gallery-source-note">Studio-rendered views. Compare original product photos for real-world details.</p>
       </div>
       <div class="product-page-info">
         <a class="product-back" href="index.html#hats">← Back to all 34 hats</a>
@@ -47,7 +58,7 @@
         <p class="product-page-price"></p>
         <div class="product-preview-note"><b>PRIVATE STORE PREVIEW</b><span>This bag is a design simulation and cannot create an order.</span></div>
         <p class="product-page-description">A clean-fitting Bucket Heads style built for the course, the lake, and everything after.</p>
-        <div class="product-buy-actions"><button class="button button-dark product-page-add" type="button">Add to preview bag</button><p class="product-purchase-help"><b>Secure Shopify checkout</b><span>Guest checkout available · shipping shown at checkout</span></p></div>
+        <div class="product-buy-actions"><button class="button button-dark product-page-add" type="button">Add to preview bag</button><p class="product-purchase-help"><b>Checkout preview</b><span>Guest checkout available · shipping shown at checkout</span></p></div>
         <div class="product-fit-list">
           <div><span>01</span><p><b>STRUCTURED PROFILE</b>Designed to hold its shape round after round.</p></div>
           <div><span>02</span><p><b>ADJUSTABLE FIT</b>A comfortable fit for long days on and off the course.</p></div>
@@ -70,6 +81,8 @@
   </main>
 
   <footer class="site-footer">
+    <div class="footer-support"><div><a href="https://bucketheadsgolf.com/pages/privacy-policy" target="_blank" rel="noopener">Privacy policy ↗</a><a href="https://bucketheadsgolf.com/pages/terms-conditions" target="_blank" rel="noopener">Terms ↗</a><a href="https://bucketheadsgolf.com/pages/return-policy" target="_blank" rel="noopener">Returns ↗</a><p>Questions about fit, shipping or a custom order? <a href="mailto:admin@bucketheadsgolf.com">admin@bucketheadsgolf.com</a></p></div><p>Policy links open the current store's published policies.<br>No payment or form submission is made from this preview.</p></div>
+
     <a class="footer-mark" href="index.html">BUCKET<br>HEADS<span>FORE EVERYONE.</span></a>
     <div><p>Shop</p><a href="index.html#hats">All hats</a><a href="index.html#apparel">Apparel</a><a href="index.html#hats">Game Day</a></div>
     <div><p>About</p><a href="index.html#story">Fore Everyone</a><a href="wholesale.html">Wholesale</a><a href="tournament.html">Tournament</a><a href="https://bucketheadsgolf.com/blogs/news">Stories</a></div>
@@ -81,7 +94,7 @@
     <div class="bag-head"><div><p class="eyebrow">DESIGN PREVIEW</p><h2>YOUR BAG</h2></div><button class="bag-close" type="button" aria-label="Close bag">×</button></div>
     <p class="bag-note"><b>Preview only.</b> Nothing here creates an order or collects payment.</p>
     <div class="bag-items"></div>
-    <div class="bag-footer"><div><span><b class="bag-item-count-text">0 items</b><small>Subtotal</small></span><strong class="bag-total">$0.00</strong></div><p>Shipping and taxes are shown during checkout.</p><button class="button button-green mock-checkout" type="button" disabled>Add a hat to continue</button><button class="bag-continue" type="button">Continue shopping</button><div class="bag-assurance"><span>✓ Secure Shopify handoff</span><span>✓ Guest checkout</span></div></div>
+    <div class="bag-footer"><div><span><b class="bag-item-count-text">0 items</b><small>Subtotal</small></span><strong class="bag-total">$0.00</strong></div><p>Shipping and taxes are shown during checkout.</p><button class="button button-green mock-checkout" type="button" disabled>Add a hat to continue</button><button class="bag-continue" type="button">Continue shopping</button><div class="bag-assurance"><span>✓ Preview only · no payment</span><span>✓ Guest checkout</span></div></div>
   </aside>
   <button class="bag-backdrop" type="button" aria-label="Close preview bag" hidden></button>
   <div class="mobile-buybar" aria-label="Quick add product">
@@ -89,8 +102,10 @@
     <button class="button button-dark mobile-buybar-add" type="button">Add to bag</button>
   </div>
   <div class="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=18"></script>
-  <script src="tracking.js?v=4"></script>
-  <script src="product.js?v=15"></script>
+  <script src="catalog-data.js?v=29"></script>
+  <script src="tracking.js?v=29"></script>
+  <script src="app.js?v=29"></script>
+  <script src="support.js?v=29"></script>
+  <script src="product.js?v=29"></script>
 </body>
 </html>
