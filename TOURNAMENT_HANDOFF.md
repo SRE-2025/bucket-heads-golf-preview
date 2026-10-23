@@ -26,4 +26,11 @@ The redesign must use the active Onion Creek Club products as the single source 
 11. Verify the Tournament links in desktop navigation, mobile navigation, homepage strip, and footer.
 12. Add the confirmed date and tee time only after Bucket Heads publishes or supplies them.
 
+## Sponsorship flow
+
+- The redesign includes `tournament-sponsor.html` with two paths: purchase the current $400 hole sponsorship or submit a custom-package inquiry.
+- The purchase form uses the existing hole sponsor variant `52511999492327` and attaches the event, company, sponsor contact, email, phone, website/social, notes, and logo follow-up requirement as Shopify line-item properties.
+- The inquiry form posts through Bucket Heads' existing Shopify contact route and labels the message `tournament-sponsorship-inquiry`; it must continue to notify `admin@bucketheadsgolf.com` after launch.
+- Do not promise specific signage, social posts, attendee counts, or other deliverables until Bucket Heads confirms them for the event.
+
 The GitHub preview intentionally sends payment to the existing live Shopify variants. It does not create a second payment system or order database.
