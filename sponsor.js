@@ -29,7 +29,7 @@
 
   document.querySelector('.sponsor-purchase-form')?.addEventListener('submit',event=>{
     if(!event.currentTarget.reportValidity()){event.preventDefault();return}
-    if(!isShopify||!runtime.eventConfirmed){event.preventDefault();showStatus(event.currentTarget,isShopify?'Event details are awaiting approval. No payment was created.':'Sponsorship checkout preview complete. No payment was taken and no live order was placed.');return}
+    if(!isShopify||!runtime.eventConfirmed){event.preventDefault();showStatus(event.currentTarget,isShopify?'Sponsorship checkout is not enabled yet. Please contact Bucket Heads. No payment was created.':'Sponsorship checkout preview complete. No payment was taken and no live order was placed.');return}
     const product=catalog.find(p=>p.handle==='scramble-hole-sponsor'),variant=product?.variants.find(v=>v.available);if(!variant){event.preventDefault();showStatus(event.currentTarget,'Sponsorship is unavailable. Please contact Bucket Heads.');return}event.currentTarget.elements.id.value=variant.id;
     track('begin_sponsor_checkout',{registration_type:'hole-sponsor',value:400,currency:'USD',shopify_variant:'52511999492327'});
   });
@@ -40,6 +40,7 @@
     const data=new FormData(form);
     const summary=[
       'Tournament: Onion Creek Club Scramble',
+      'Event date: Monday, December 28, 2026 at 10 AM Central',
       `Company: ${data.get('contact[Company]')||''}`,
       `Contact: ${data.get('contact[First Name]')||''}`,
       `Email: ${data.get('contact[email]')||''}`,
