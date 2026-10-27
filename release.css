@@ -20,3 +20,5 @@ button,a,input,select,textarea{-webkit-tap-highlight-color:transparent}button:fo
 .tournament-meta article{padding:22px 18px;min-width:0}.tournament-meta strong{font-size:26px;line-height:1.15}.tournament-meta p{font-size:12px;line-height:1.6}.sponsor-hero-copy>.event-format{margin-top:16px;font-weight:700;color:#fff}.event-deadline{padding:22px 5vw;background:#e9f0e5;color:#0b2717;font-size:14px;line-height:1.7}.event-deadline a{display:inline-block;margin-left:12px;text-decoration:underline;font-weight:700}.tournament-strip>span{line-height:1.5}
 @media(max-width:760px){.tournament-hero-copy>.eyebrow{max-width:100%;line-height:1.7}.event-deadline{padding:20px}.event-deadline a{display:block;margin:8px 0 0}.wholesale-faq h2{font-size:clamp(36px,10vw,54px)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+/* Keep the next signup step clear of the sticky header after keyboard focus. */
+.team-ready,.team-join,.team-covered,[data-team-builder]{scroll-margin-top:110px}

@@ -5,6 +5,9 @@ if(!product){document.querySelector('main').innerHTML='<section class="not-found
 const image=$('#product-page-image'),visual=$('.product-page-visual'),thumbs=$('.product-gallery-thumbs'),caption=$('.product-view-caption'),count=$('.gallery-count'),add=$('.product-page-add'),mobileAdd=$('.mobile-buybar-add');
 document.title=product.title+' — Bucket Heads Golf'+(isShopify?'':' Preview');
 $('.product-page-title').textContent=product.title;$('.product-page-category').textContent=categoryLabel(product);$('.mobile-buybar-title').textContent=product.title;
+const browseURL=((isShopify||runtime.shopifyTheme)?(runtime.root||'/'):'index.html')+(product.isHat?'#hats':'#apparel');
+$('.product-back').href=browseURL;$('.product-back').textContent=product.isHat?'← Back to all 34 hats':'← Back to apparel';
+$('.related-heading a').href=browseURL;$('.related-heading a').textContent=product.isHat?'Shop all hats ↗':'Shop apparel ↗';
 $('.product-page-description').textContent=product.description||'Contact Bucket Heads for sizing and product details before ordering.';
 $('.product-page-description').classList.add('catalog-description');
 $('.product-page-live').href='https://bucketheadsgolf.com/products/'+encodeURIComponent(product.handle);
