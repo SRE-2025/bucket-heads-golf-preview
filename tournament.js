@@ -10,7 +10,11 @@ function syncPaymentChoice(){roster.hidden=captainForm.elements.payment_plan.val
 async function api(path,body){
  if(!isShopify||!runtime.teamApi||!runtime.eventConfirmed)throw Error('Tournament registration is awaiting organizer approval. No payment was created.');
  const url=new URL(runtime.teamApi+path,location.origin);if(url.origin!==location.origin)throw Error('Registration endpoint must be the approved same-origin Shopify app proxy.');
- const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}),result=await r.json();if(!r.ok)throw Error(result.error||'Please try again.');return result;
+ const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+ // Shopify can replace an upstream error with an HTML error page. Keep that
+ // failure understandable and never invite a duplicate payment attempt.
+ let result;try{result=await r.json()}catch{throw Error(path==='/api/team/reserve'?'We could not confirm your checkout. Please contact Bucket Heads before trying to pay again.':'Registration is temporarily unavailable. Please contact Bucket Heads for help. No payment was created.')}
+ if(!r.ok)throw Error(result.error||'Registration is temporarily unavailable. Please contact Bucket Heads.');return result;
 }
 function shareLink(){const url=new URL(location.href);url.search='';url.hash='';if(runtime.shopifyTheme&&!isShopify)url.searchParams.set('view','bh-tournament');url.searchParams.set('team',team.code);if(!isShopify){url.searchParams.set('demo','1');url.searchParams.set('plan',team.plan)}else url.hash='invite='+encodeURIComponent(team.token);return url.toString()}
 function showTeam(){
