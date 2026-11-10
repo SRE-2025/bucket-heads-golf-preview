@@ -64,6 +64,7 @@ function changeQuantity(change) {
   byId('quantity').textContent = selection.quantity;
   byId('less').disabled = selection.quantity === 1;
   byId('more').disabled = selection.quantity === 99;
+  byId('selection-total').textContent = money(selection.quantity * unitCents);
 }
 byId('less').addEventListener('click', () => changeQuantity(-1));
 byId('more').addEventListener('click', () => changeQuantity(1));
@@ -90,25 +91,112 @@ for (const close of document.querySelectorAll('[data-close]')) {
   close.addEventListener('click', () => close.closest('dialog').close());
 }
 
+// Shopify product 10402961129703. Variant IDs were read from the merchant's draft.
+const variantIds = {
+  black: {XS:'53032482373863', S:'53032482406631', M:'53032482439399', L:'53032482472167', XL:'53032482504935', '2XL':'53032482537703', '3XL':'53032482570471', '4XL':'53032482603239'},
+  white: {XS:'53032482636007', S:'53032482668775', M:'53032482701543', L:'53032482734311', XL:'53032482767079', '2XL':'53032482799847', '3XL':'53032482832615', '4XL':'53032482865383'}
+};
+const unitCents = 5000;
+const currency = new Intl.NumberFormat('en-US', {style:'currency', currency:'USD'});
+const money = cents => currency.format(cents / 100);
+const bag = new Map();
+// Only a release edit after owner approval can open the checkout. The Shopify
+// product must also be active and available on the Online Store channel.
+const paymentsOpen = document.body.dataset.checkoutState === 'open';
+let checkoutReview = false;
+
+function shopifyCheckoutUrl() {
+  const lines = Array.from(bag, ([id, item]) => id + ':' + item.quantity);
+  return 'https://bucketheadsgolf.com/cart/' + lines.join(',');
+}
+
+function renderOrder() {
+  const items = byId('order-items');
+  items.replaceChildren();
+  let count = 0;
+  for (const [id, item] of bag) {
+    const line = byId('line-template').content.firstElementChild.cloneNode(true);
+    const variant = titleCase(item.color) + ' / ' + item.size;
+    line.dataset.variant = id;
+    line.querySelector('.line-image').src = photoUrl(item.color, 'front');
+    line.querySelector('.line-variant').textContent = variant + ' · ' + money(unitCents) + ' each';
+    line.querySelector('.line-quantity').textContent = item.quantity;
+    line.querySelector('.line-total').textContent = money(unitCents * item.quantity);
+    line.querySelector('[data-action="less"]').disabled = item.quantity <= 1;
+    line.querySelector('[data-action="more"]').disabled = item.quantity >= 99;
+    for (const button of line.querySelectorAll('[data-action]')) {
+      button.setAttribute('aria-label', (button.getAttribute('aria-label') || 'Remove') + ', ' + variant);
+    }
+    line.querySelector('.line-controls').hidden = checkoutReview;
+    if (checkoutReview) line.querySelector('.line-variant').textContent += ' · Qty ' + item.quantity;
+    items.append(line);
+    count += item.quantity;
+  }
+  byId('bag-count').textContent = count;
+  byId('show-bag').setAttribute('aria-label', 'Open preorder bag, ' + count + (count === 1 ? ' shirt' : ' shirts'));
+  byId('empty-bag').hidden = count !== 0;
+  byId('order-totals').hidden = count === 0;
+  byId('subtotal').textContent = money(count * unitCents);
+  byId('summary-title').textContent = checkoutReview ? 'Checkout preview.' : 'Your preorder.';
+  byId('payment-note').textContent = checkoutReview
+    ? 'At launch, Shopify will collect delivery and payment details to place this paid preorder.'
+    : 'This presale is paid in full at checkout.';
+  byId('checkout').disabled = checkoutReview;
+  byId('checkout').textContent = checkoutReview ? 'Payment opens at launch' : paymentsOpen ? 'Continue to Shopify checkout ↗' : 'Preview checkout →';
+  byId('edit').textContent = checkoutReview ? 'Edit preorder' : 'Continue shopping';
+}
+function openOrder() {
+  checkoutReview = false;
+  renderOrder();
+  summary.showModal();
+  byId('summary-title').focus();
+}
+byId('show-bag').addEventListener('click', openOrder);
 byId('review').addEventListener('click', () => {
+  const error = byId('size-error');
   if (!selection.size) {
-    byId('size-error').hidden = false;
+    error.textContent = 'Choose a size to add this shirt to your preorder.';
+    error.hidden = false;
     sizeButtons[0].focus();
     return;
   }
-  byId('picked-photo').src = photoUrl(selection.color, selection.view);
-  byId('picked-line').textContent = titleCase(selection.color) + ' / ' + selection.size + ' / Qty ' + selection.quantity;
-  byId('summary-title').textContent = 'Your selection.';
-  byId('review-copy').textContent = 'Preview this interest request in your browser. Retail price and shipping timing are pending.';
-  byId('confirm').hidden = false;
-  byId('edit').textContent = 'Edit selection';
-  summary.showModal();
+  const id = variantIds[selection.color][selection.size];
+  const quantity = (bag.get(id)?.quantity || 0) + selection.quantity;
+  if (quantity > 99) {
+    error.textContent = 'Your bag can hold up to 99 shirts of each color and size. Open Bag to adjust the quantity.';
+    error.hidden = false;
+    return;
+  }
+  error.hidden = true;
+  bag.set(id, {color: selection.color, size: selection.size, quantity});
+  openOrder();
 });
-byId('confirm').addEventListener('click', () => {
-  byId('summary-title').textContent = 'Preview complete.';
-  byId('review-copy').textContent = 'This is the confirmation step shoppers would see. Your selection was simulated on this device.';
-  byId('confirm').hidden = true;
-  byId('edit').textContent = 'Back to product';
-  byId('edit').focus();
+byId('order-items').addEventListener('click', event => {
+  const button = event.target.closest('button[data-action]');
+  if (!button || checkoutReview) return;
+  const id = button.closest('.order-line').dataset.variant;
+  const item = bag.get(id);
+  if (button.dataset.action === 'remove') bag.delete(id);
+  else item.quantity = Math.min(99, Math.max(1, item.quantity + (button.dataset.action === 'more' ? 1 : -1)));
+  renderOrder();
+  const updated = Array.from(byId('order-items').children).find(line => line.dataset.variant === id);
+  const nextButton = updated?.querySelector('[data-action="' + button.dataset.action + '"]:not(:disabled)');
+  (nextButton || byId('edit')).focus();
 });
-byId('edit').addEventListener('click', () => summary.close());
+byId('checkout').addEventListener('click', () => {
+  if (!bag.size || checkoutReview) return;
+  if (paymentsOpen) {
+    window.location.assign(shopifyCheckoutUrl());
+    return;
+  }
+  checkoutReview = true;
+  renderOrder();
+  byId('summary-title').focus();
+});
+byId('edit').addEventListener('click', () => {
+  if (checkoutReview) {
+    checkoutReview = false;
+    renderOrder();
+    byId('summary-title').focus();
+  } else summary.close();
+});

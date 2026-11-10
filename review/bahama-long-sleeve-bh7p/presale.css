@@ -101,3 +101,22 @@ thead{background:#ecf0e8;color:#274b35}th:first-child{text-align:left}
 @media(max-width:940px) and (min-width:721px){.product{gap:26px;grid-template-columns:1fr 1fr}.wrap{padding-inline:24px}.sizes button{flex:0 1 calc(25% - 5px)}.stage{aspect-ratio:.86}}
 @media(max-width:720px){.utility{height:24px;font-size:9px}.mast{grid-template-columns:auto 1fr auto;gap:14px;min-height:61px;padding:0 18px}.wordmark img{width:85px;height:52px}.desktop-nav{display:none}.mobile-nav{display:block;position:relative}.mobile-nav summary{width:40px;height:42px;display:grid;align-content:center;justify-items:end;gap:6px;list-style:none}.mobile-nav summary span{height:2px;background:var(--ink);width:23px}.mobile-nav nav{position:absolute;right:0;top:44px;z-index:9;width:165px;align-items:flex-start;gap:0;flex-direction:column;padding:8px 15px;border:1px solid var(--line);border-radius:8px;background:white;box-shadow:0 6px 17px #183c241a}.mobile-nav nav a{padding:11px 0;width:100%}.mode{font-size:11px}.wrap{padding:0 18px 32px}.crumb{font-size:11px;padding:16px 0}.product{display:flex;flex-direction:column;gap:0}.info{display:contents}.intro{order:0;margin:0 0 16px}.gallery{order:1;width:100%}.configure{order:2;width:100%;margin-top:17px;padding-top:16px}.flag{margin-bottom:6px;font-size:10px}h1{font-size:clamp(38px,10.5vw,58px);line-height:.96}.copy{font-size:14px;line-height:1.45;margin-top:10px}.stage{aspect-ratio:1.13;border-radius:10px}.stage-key{bottom:10px;left:10px}.zoom{width:40px;height:40px;top:10px;right:10px}.thumbs{margin-top:8px;gap:7px}.thumbs button{min-width:0;display:flex;align-items:center;gap:5px;padding:4px 8px 4px 4px;min-height:44px}.thumbs img{width:38px;height:38px}.sizes button{min-height:44px;min-width:43px;flex:1 1 calc(25% - 8px)}.swatch{min-height:44px}.size-head{margin-top:17px}.primary{font-size:21px}.order-row{gap:8px}.qty button{width:35px}.note{font-size:12px}.specs{margin-top:17px}footer{padding:18px;font-size:11px}footer div{gap:5px;align-items:flex-start;flex-direction:column}footer strong{font-size:18px}dialog{padding:16px 18px} .dialog-top{margin-bottom:8px}}
 @media(prefers-reduced-motion:no-preference){button,a{transition:background-color .12s,border-color .12s,color .12s}}
+.shop-tools{justify-self:end;display:flex;align-items:center;gap:16px}
+.bag-link{display:inline-flex;align-items:center;gap:7px;min-height:42px;border:0;background:transparent;color:var(--green);font-size:13px;font-weight:700;padding:4px}
+.bag-link span{background:var(--green);color:white;border-radius:20px;padding:3px 7px;font-size:11px}
+.unit-price{color:var(--green);font-weight:750;font-size:27px;margin:14px 0 0;line-height:1.15}
+.unit-price span{font-size:12px;font-weight:500;color:var(--muted)}
+#selection-total{font:700 15px/1 Arial,sans-serif;white-space:nowrap}
+#review-dialog{width:min(555px,calc(100% - 28px))}
+.order-line{display:grid;grid-template-columns:66px minmax(0,1fr) auto;gap:13px;align-items:start;padding:16px 0;border-bottom:1px solid var(--line)}
+.order-line:first-child{border-top:1px solid var(--line);margin-top:17px}
+.line-image{height:73px;width:66px;object-fit:contain;background:#eef1eb;border-radius:6px;mix-blend-mode:multiply}
+.line-details b{font-size:14px}.line-variant{margin:5px 0 8px;font-size:13px;color:var(--muted)}
+.line-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.small-qty,.small-qty button{min-height:35px}.small-qty button{width:30px}.small-qty output{font-size:13px}
+.line-total,.subtotal strong,#selection-total{font-variant-numeric:tabular-nums}
+.line-total{font-size:14px;padding-top:1px}.subtotal{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:18px 0 5px;font-weight:650}
+.subtotal strong{font-size:21px}
+#payment-note{margin-bottom:14px}.primary:disabled{background:#d9e3d9;color:#31513c;cursor:default}
+body[data-checkout-state="open"] .review-only{display:none}
+@media(max-width:720px){.shop-tools{gap:8px}.bag-link{font-size:12px}.order-line{grid-template-columns:45px minmax(0,1fr) auto;gap:8px}.line-image{width:45px;height:56px}.line-details b,.line-total{font-size:13px}.line-controls{gap:8px}.unit-price{font-size:23px;margin-top:9px}}

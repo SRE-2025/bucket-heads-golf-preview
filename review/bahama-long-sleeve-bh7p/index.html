@@ -9,16 +9,16 @@
   <title>Performance Hooded Long Sleeve T-Shirt · Bucket Heads Presale Preview</title>
   <link rel="icon" href="../../assets/bucket-heads-logo.png">
   <link rel="preload" href="media/barlow-condensed-800.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="presale.css">
-  <script src="presale.js" defer></script>
+  <link rel="stylesheet" href="presale.css?v=paid-presale-1">
+  <script src="presale.js?v=paid-presale-1" defer></script>
 </head>
-<body>
+<body data-checkout-state="review">
   <a class="skip" href="#main">Skip to product</a>
   <div class="utility"><span>Bucket Heads Golf Co.</span><i aria-hidden="true">✦</i><span>Fore Everyone</span></div>
   <header class="mast">
     <a class="wordmark" href="../../index.html" aria-label="Bucket Heads preview home"><img src="../../assets/bucket-heads-logo.png" alt="Bucket Heads Golf" width="124" height="74"></a>
     <nav class="desktop-nav" aria-label="Preview navigation"><a href="../../index.html#hats">Hats</a><a class="current" href="../../index.html#apparel">Apparel</a><a href="../../index.html#story">Story</a><a href="../../wholesale.html">Wholesale</a></nav>
-    <span class="mode"><span aria-hidden="true"></span>Design preview</span>
+    <div class="shop-tools"><span class="mode review-only"><span aria-hidden="true"></span>Design preview</span><button class="bag-link" id="show-bag" type="button" aria-label="Open preorder bag, 0 shirts">Bag <span id="bag-count">0</span></button></div>
     <details class="mobile-nav"><summary aria-label="Navigation menu"><span></span><span></span></summary><nav aria-label="Mobile preview navigation"><a href="../../index.html#hats">Hats</a><a href="../../index.html#apparel">Apparel</a><a href="../../index.html#story">Story</a><a href="../../wholesale.html">Wholesale</a></nav></details>
   </header>
   <main id="main" class="wrap">
@@ -38,6 +38,7 @@
       </section>
       <div class="info">
         <div class="intro"><p class="flag">Apparel presale</p><h1>Performance Hooded Long Sleeve T-Shirt</h1>
+          <p class="unit-price">$50.00 <span>USD / shirt</span></p>
           <p class="copy">The BH monogram up front. Our walking golf-ball mascot across the back. A lightweight, hooded performance tee for the full eighteen.</p>
         </div>
         <div class="configure">
@@ -51,9 +52,9 @@
           <div class="sizes" role="group" aria-labelledby="size-label">
             <button type="button" aria-pressed="false">XS</button><button type="button" aria-pressed="false">S</button><button type="button" aria-pressed="false">M</button><button type="button" aria-pressed="false">L</button><button type="button" aria-pressed="false">XL</button><button type="button" aria-pressed="false">2XL</button><button type="button" aria-pressed="false">3XL</button><button type="button" aria-pressed="false">4XL</button>
           </div>
-          <p class="error" id="size-error" role="alert" hidden>Choose a size to preview your selection.</p>
-          <div class="order-row"><div class="qty" role="group" aria-label="Quantity"><button type="button" id="less" aria-label="Decrease quantity" disabled>−</button><output aria-label="Quantity" id="quantity">1</output><button type="button" id="more" aria-label="Increase quantity">+</button></div><button type="button" class="primary" id="review">Preview my presale <span aria-hidden="true">↗</span></button></div>
-          <p class="note">Pricing and shipping timing will be announced. This is a demo selection.</p>
+          <p class="error" id="size-error" role="alert" hidden>Choose a size to add this shirt to your preorder.</p>
+          <div class="order-row"><div class="qty" role="group" aria-label="Quantity"><button type="button" id="less" aria-label="Decrease quantity" disabled>−</button><output aria-label="Quantity" id="quantity">1</output><button type="button" id="more" aria-label="Increase quantity">+</button></div><button type="button" class="primary" id="review">Add to preorder <span id="selection-total">$50.00</span></button></div>
+          <p class="note">Presale item. Shipping timing will be announced. <span class="review-only">Payments open after approval.</span></p>
           <details class="specs" open><summary>Fabric &amp; construction</summary><p>Made from 100% microfiber polyester, this 3.5 oz/yd² fabric has a wrinkle-resistant finish. Paragon Plus helps manage moisture and odor. Both colorways offer UPF 50+ coverage.</p><p>A two-layer hood, matching fabric at the neck, side seams and a tear-away label finish the shirt.</p></details>
         </div>
       </div>
@@ -65,12 +66,27 @@
     <table><thead><tr><th scope="col">Size</th><th scope="col">Chest width</th><th scope="col">Length</th><th scope="col">Sleeve</th></tr></thead><tbody id="measurements"></tbody></table>
     <p class="note">Supplier measurements for Paragon 220. Length and chest width may vary by ½ inch. Final presale sizes are pending.</p></dialog>
   <dialog id="photo-dialog" class="photo-dialog" aria-labelledby="zoom-title"><div class="dialog-top"><p class="flag" id="zoom-title">Product photo</p><button class="close" type="button" data-close aria-label="Close enlarged photo">×</button></div><img id="large-photo" alt=""></dialog>
-  <dialog id="review-dialog" aria-labelledby="summary-title"><div class="dialog-top"><p class="flag">Review-only presale</p><button class="close" type="button" data-close aria-label="Close presale preview">×</button></div>
-    <h2 id="summary-title">Your selection<span>.</span></h2>
-    <div class="pick"><img id="picked-photo" alt=""><div><b>Performance Hooded Long Sleeve T-Shirt</b><p id="picked-line"></p></div></div>
-    <p class="dialog-copy" id="review-copy">Preview this interest request in your browser. Retail price and shipping timing are pending.</p>
-    <button type="button" class="primary wide" id="confirm">Simulate interest request <span aria-hidden="true">↗</span></button>
-    <button type="button" class="text-button edit" id="edit">Edit selection</button>
+  <dialog id="review-dialog" aria-labelledby="summary-title">
+    <div class="dialog-top"><p class="flag" id="order-label">Apparel presale</p><button class="close" type="button" data-close aria-label="Close preorder bag">×</button></div>
+    <h2 id="summary-title" tabindex="-1">Your preorder.</h2>
+    <div id="order-items"></div>
+    <p id="empty-bag" class="dialog-copy">Choose a color and size to start your preorder.</p>
+    <div id="order-totals" hidden>
+      <div class="subtotal"><span>Merchandise subtotal</span><strong id="subtotal"></strong></div>
+      <p class="note">Shipping and any applicable tax are calculated by Shopify at checkout.</p>
+      <p class="note" id="payment-note"></p>
+      <button type="button" class="primary wide" id="checkout">Continue to checkout <span aria-hidden="true">↗</span></button>
+    </div>
+    <button type="button" class="text-button edit" id="edit">Continue shopping</button>
   </dialog>
+  <template id="line-template">
+    <article class="order-line">
+      <img class="line-image" alt="">
+      <div class="line-details"><b>Performance Hooded Long Sleeve T-Shirt</b><p class="line-variant"></p>
+        <div class="line-controls"><div class="qty small-qty"><button type="button" data-action="less" aria-label="Decrease item quantity">−</button><output class="line-quantity"></output><button type="button" data-action="more" aria-label="Increase item quantity">+</button></div><button type="button" class="text-button" data-action="remove">Remove</button></div>
+      </div>
+      <strong class="line-total"></strong>
+    </article>
+  </template>
   <div class="sr" aria-live="polite" id="feedback"></div>
 </body></html>
